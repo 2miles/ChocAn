@@ -1,5 +1,6 @@
 * Font: Times New Roman
 * Heading 2:
+  * Page break
   * Bold: Yes
   * Tab: No
   * Size: 16pt
