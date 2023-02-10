@@ -6,10 +6,10 @@
 * Zach R 
 * Miles W 
 
-## Running ChonAn
+## Running ChocAn
 
 ```sh
-python3 chonan.py
+python3 chocan.py
 ```
 
 ## Running Tests
