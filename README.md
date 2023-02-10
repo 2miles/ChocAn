@@ -6,6 +6,11 @@
 * Zach R 
 * Miles W 
 
+## Requirements
+
+* Python 3.10+
+* `pytest` 6.2+
+
 ## Running ChocAn
 
 ```sh
