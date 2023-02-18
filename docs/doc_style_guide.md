@@ -30,3 +30,12 @@
   * Size: 12pt
   * Line spacing: Single
   * Newlines: No
+* Code Text:
+  * Font: Courier New
+  * Background Color: Light Grey 3 
+    * Only when code is inlined with normal text
+  * Bold: No
+  * Tab: No
+  * Size: 11pt
+  * Line spacing: single
+  * Newlines: No
