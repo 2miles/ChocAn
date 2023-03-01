@@ -6,17 +6,17 @@ class RecordType(Enum):
     PROVIDER = 2
     SERVICE  = 3
 
-record_file_names = {
-  RecordType.MEMBER   : "members.txt",
-  RecordType.PROVIDER : "providers.txt",
-  RecordType.SERVICE  : "services.txt"
+_record_file_names = {
+  RecordType.MEMBER   : "members.json",
+  RecordType.PROVIDER : "providers.json",
+  RecordType.SERVICE  : "services.json"
 }
 
 record_directory = "./records/"
 
 def get_all_records(record_type : RecordType) -> "list[dict]":
     try:
-        records = json.load(open(record_directory + record_file_names[record_type]))
+        records = json.load(open(record_directory + _record_file_names[record_type]))
         return records
     except FileNotFoundError:
         return []
