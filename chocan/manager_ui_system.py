@@ -3,7 +3,7 @@ from chocan import (
     output_system, 
 )
 
-# MANAGE MANAGER MENU
+# Manager Menu
 ###############################################################################
 def display_manager_ui_menu() -> None:
     output_system.display(
@@ -29,7 +29,7 @@ def run_manager_ui() -> None:
                 output_system.display(f"Unknown selection {selection}")
 
 
-# MANAGE MEMBERS MENU
+# Manage Members Menu
 ###############################################################################
 def display_manage_members_ui_menu() -> None:
     output_system.display(
@@ -53,7 +53,7 @@ def run_manage_members_ui() -> None:
                 output_system.display(f"Unknown selection {selection}")
 
 
-# MANAGE PROVIDERS MENU
+# Manage Providers Menu
 ###############################################################################
 def display_manage_providers_ui_menu() -> None:
     output_system.display(
@@ -77,7 +77,7 @@ def run_manage_providers_ui() -> None:
                 output_system.display(f"Unknown selection {selection}")
 
 
-# GENERATE REPORTS MENU
+# Generate Reports Menu
 ###############################################################################
 def display_generate_reports_ui_menu() -> None:
     output_system.display(
@@ -105,7 +105,7 @@ def run_generate_reports_ui() -> None:
                 output_system.display(f"Unknown selection {selection}")
 
 
-# LOOKUP MEMBER MENU
+# Lookup Member Menu
 ###############################################################################
 def display_lookup_manager_ui_menu() -> None:
     output_system.display(
@@ -129,7 +129,7 @@ def run_lookup_member_ui() -> None:
                 output_system.display(f"Unknown selection {selection}")
 
 
-# LOOKUP PROVIDER MENU
+# Lookup Provider Menu
 ###############################################################################
 def display_lookup_provider_ui_menu() -> None:
     output_system.display(
