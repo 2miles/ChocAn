@@ -35,18 +35,33 @@ def create_record(record_type : RecordType, data : dict) -> None:
     json.dump(records, open(file_path(record_type), "w"))
     return None
 
-def get_index_of_record(records: list, number: int) -> int:
-    for i in range(len(records)):
-        if records[i]["number"] == number:
-            return i
-    return None
+def get_index_of_record(records: list[dict], number: int) -> int:
+    dict_records = {record["number"]: i for i, record in enumerate(records)}
+    return dict_records.get(number)
 
 def get_record(record_type: RecordType, number: int) -> "list[dict]":
     if record_type == RecordType.SERVICE:
         raise InvalidRecordType("Service records not supported.")
     records = get_all_records(record_type)
     record_index = get_index_of_record(records, number)
+    return records[record_index] if record_index is not None else None
+
+def update_record(record_type: RecordType, number: int, data: dict) -> None:
+    if record_type == RecordType.SERVICE:
+        raise InvalidRecordType("Service records not supported.")
+    records = get_all_records(record_type)
+    record_index = get_index_of_record(records, number)
     if record_index is not None:
-        return records[record_index]
-    else:
-        return None
+        records[record_index] = data
+        json.dump(records, open(file_path(record_type), "w"))
+    return None
+
+def delete_record(record_type : RecordType, number : int) -> None:
+    if record_type == RecordType.SERVICE:
+        raise InvalidRecordType("Service records not supported.")
+    records = get_all_records(record_type)
+    record_index = get_index_of_record(records, number)
+    if record_index is not None:
+        del records[record_index]
+        json.dump(records, open(file_path(record_type), "w"))
+    return None
