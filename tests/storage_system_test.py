@@ -111,3 +111,13 @@ def test_create_provider(record_cleaner):
     assert len(all_providers) == 3
     assert all_providers[2].name == "Provider 3"
     assert all_providers[2].number == 3
+
+def test_get_provider(record_cleaner):
+    # fetches an existing provider record 
+    provider = provider_system.get_provider(1)
+    assert provider.number == 1
+
+    # fetches a non-existing provider record 
+    provider = provider_system.get_provider(999999999)
+    assert provider is None
+    
