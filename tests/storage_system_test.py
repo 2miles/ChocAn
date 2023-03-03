@@ -77,16 +77,32 @@ def test_create_record_member(record_cleaner):
 def test_get_all_providers(record_cleaner):
     providers = provider_system.get_all_providers()
     assert len(providers) == 2
-    assert providers[0].name == "Provider 1"
+    assert providers[0].name   == "Provider 1"
     assert providers[0].street == "Office Street"
-    assert providers[0].city == "Portland"
-    assert providers[0].state == "OR"
-    assert providers[0].zip == "97214"
+    assert providers[0].city   == "Portland"
+    assert providers[0].state  == "OR"
+    assert providers[0].zip    == "97214"
     assert providers[0].number == 1
 
-    assert providers[1].name == "Provider 2"
+    assert providers[1].name   == "Provider 2"
     assert providers[1].street == "Provider Ave"
-    assert providers[1].city == "Portland"
-    assert providers[1].state == "OR"
-    assert providers[1].zip == "97222"
+    assert providers[1].city   == "Portland"
+    assert providers[1].state  == "OR"
+    assert providers[1].zip    == "97222"
     assert providers[1].number == 2
+
+def test_create_provider(record_cleaner):
+    provider = provider_system.create_provider(
+        name   = "Provider 3",
+        street = "3rd Ave",
+        city   = "Portland",
+        state  = "OR",
+        zip    = "34567"
+    )
+    assert provider.name   == "Provider 3"
+    assert provider.street == "3rd Ave"
+    assert provider.city   == "Portland"
+    assert provider.state  == "OR"
+    assert provider.zip    == "34567"
+    assert provider.number == 3
+    

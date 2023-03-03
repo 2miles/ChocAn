@@ -27,7 +27,7 @@ def create_provider(
     state: str,
     zip: str
 ) -> 'ProviderRecord':
-    number = ProviderRecord.generate_provider_number()
+    number = generate_provider_number()
     data = {
         key: value for key, value in {
             "name": name,
