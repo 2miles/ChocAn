@@ -1,4 +1,4 @@
-from chocan import storage_system
+from chocan import storage_system, provider_system
 import pytest
 import os
 
@@ -73,3 +73,20 @@ def test_create_record_member(record_cleaner):
     records = storage_system.get_all_records(storage_system.RecordType.MEMBER)
     # Test that the record with member number 4242 exists.
     assert next((x for x in records if x['number'] == 4242), None)
+
+def test_get_all_providers(record_cleaner):
+    providers = provider_system.get_all_providers()
+    assert len(providers) == 2
+    assert providers[0].name == "Provider 1"
+    assert providers[0].street == "Office Street"
+    assert providers[0].city == "Portland"
+    assert providers[0].state == "OR"
+    assert providers[0].zip == "97214"
+    assert providers[0].number == 1
+
+    assert providers[1].name == "Provider 2"
+    assert providers[1].street == "Provider Ave"
+    assert providers[1].city == "Portland"
+    assert providers[1].state == "OR"
+    assert providers[1].zip == "97222"
+    assert providers[1].number == 2
