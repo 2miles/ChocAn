@@ -105,3 +105,9 @@ def test_create_provider(record_cleaner):
     assert provider.state  == "OR"
     assert provider.zip    == "34567"
     assert provider.number == 3
+
+    # Check that the provider was actually created in the storage system.
+    all_providers = provider_system.get_all_providers()
+    assert len(all_providers) == 3
+    assert all_providers[2].name == "Provider 3"
+    assert all_providers[2].number == 3
