@@ -105,4 +105,3 @@ def test_create_provider(record_cleaner):
     assert provider.state  == "OR"
     assert provider.zip    == "34567"
     assert provider.number == 3
-    
