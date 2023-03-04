@@ -27,7 +27,10 @@ def create_provider(
     zip: str
 ) -> 'ProviderRecord':
     number = generate_provider_number()
+
+    # Create a dictionary for "data" using dictionary comprehension  
     data = {
+        # Key value pairs for the data field except those with None values.
         key: value for key, value in {
             "name": name,
             "street": street,
@@ -35,6 +38,7 @@ def create_provider(
             "state": state,
             "zip": zip,
             "number": number
+        # Check that the data fields are not None.
         }.items() if value is not None
     }
     provider_record = ProviderRecord(data)
