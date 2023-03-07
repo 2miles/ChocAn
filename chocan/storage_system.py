@@ -35,7 +35,7 @@ def create_record(record_type : RecordType, data : dict) -> None:
     json.dump(records, open(file_path(record_type), "w"))
     return None
 
-def get_index_of_record(records: list[dict], number: int) -> int:
+def get_index_of_record(records: "list[dict]", number: int) -> int:
     dict_records = {record["number"]: i for i, record in enumerate(records)}
     return dict_records.get(number)
 
