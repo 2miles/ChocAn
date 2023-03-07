@@ -1,8 +1,10 @@
+import string
 from chocan import (
     input_system, 
     output_system, 
     manager_ui_system, 
     provider_ui_system,
+    provider_system,
 )
 
 def display_main_ui_menu() -> None:
@@ -21,20 +23,36 @@ def run_ui() -> None:
         selection = input_system.get_input(1)
         match selection:
             case '1': 
-                if(verify_manager()):
-                    manager_ui_system.run_manager_ui() 
+                manager_ui_system.run_manager_ui() 
             case '2': 
-                if(verify_provider()):
+                provider_number = get_provider_number_ui()
+                if(verify_provider_number(provider_number)):
                     provider_ui_system.run_provider_ui() 
             case '3': break
             case _:
                 output_system.display(f"Unknown selection {selection}")
 
+def get_provider_number_ui() -> int:
+    """
+    Promts user for provider number until they enter a positive integer. 
+    Accepts integers larger than 9 digits but only considers the first 9 digits.
+    Returns the potential provider number.
+    """
+    while True:
+        try:
+            output_system.display("\nEnter provider number")
+            result = int(input_system.get_input(9))
+            if result < 1:
+                raise ValueError
+        except ValueError:
+            output_system.display("Invalid data. Try again.")
+            continue
+        break
+    return result
 
-# TODO: this needs to be implemented
-def verify_manager() -> bool:
-    return True
-
-# TODO: this needs to be implemented
-def verify_provider() -> bool:
+# TODO i have this turned off for now, until we have some data in ./records/providers.json
+def verify_provider_number(provider_number: int) -> bool:
+    ## if provider_system.get_provider(provider_number) == None:
+    ##     output_system.display("Provider does not exit")
+    ##     return False
     return True
