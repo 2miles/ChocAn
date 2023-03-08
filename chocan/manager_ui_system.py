@@ -56,76 +56,13 @@ def run_manage_members_ui() -> None:
                 output_system.display(f"Unknown selection {selection}")
 
 def run_create_member_ui() -> None:
-  name = ask_for_name()
-  street = ask_for_street()
-  city = ask_for_city()
-  state = ask_for_state()
-  zip = ask_for_zip()
+  name = ask_for_string("Name: ", 25)
+  street = ask_for_string("Street Address: ", 25)
+  city = ask_for_string("City: ", 14)
+  state = ask_for_string("State: ", 2).upper()
+  zip = str(ask_for_int("Zip: ", max = 10000, min = 99999))
+
   member_system.create_member(name, street, city, state, zip)
-
-def ask_for_name() -> string:
-    while True:
-        try:
-            output_system.display("\nName: ")
-            result = input_system.get_input(25)
-        except ValueError:
-            output_system.display("Invalid data. Try again.")
-            continue
-        break
-    return result
-
-def ask_for_street() -> string:
-    while True:
-        try:
-            output_system.display("\nStreet Address: ")
-            result = input_system.get_input(25)
-        except ValueError:
-            output_system.display("Invalid data. Try again.")
-            continue
-        break
-    return result
-
-def ask_for_city() -> string:
-    while True:
-        try:
-            output_system.display("\nCity: ")
-            result = input_system.get_input(14)
-        except ValueError:
-            output_system.display("Invalid data. Try again.")
-            continue
-        break
-    return result
-
-def ask_for_state() -> string:
-    """
-    Accepts first two letters of any string, then capitlizes it.
-    """
-    while True:
-        try:
-            output_system.display("\nState: ")
-            result = input_system.get_input(2)
-            result = result.upper()
-        except ValueError:
-            output_system.display("Invalid data. Try again.")
-            continue
-        break
-    return result
-
-def ask_for_zip() -> string:
-    """
-    Accepts any 5 digit integer
-    """
-    while True:
-        try:
-            output_system.display("\nZip code: ")
-            result = int(input_system.get_input(5))
-            if result > 99999 or result < 10000:
-                raise ValueError
-        except ValueError:
-            output_system.display("Invalid data. Try again.")
-            continue
-        break
-    return str(result)
 
 
 # Manage Providers Menu
@@ -152,11 +89,11 @@ def run_manage_providers_ui() -> None:
                 output_system.display(f"Unknown selection {selection}")
 
 def run_create_provider_ui() -> None:
-  name = ask_for_name()
-  street = ask_for_street()
-  city = ask_for_city()
-  state = ask_for_state()
-  zip = ask_for_zip()
+  name = ask_for_string("Name: ", 25)
+  street = ask_for_string("Street Address: ", 25)
+  city = ask_for_string("City: ", 14)
+  state = ask_for_string("State: ", 2).upper()
+  zip = str(ask_for_int("Zip: ", max = 10000, min = 99999))
   provider_system.create_provider(name, street, city, state, zip)
 
 # Generate Reports Menu
@@ -233,3 +170,48 @@ def run_lookup_provider_ui() -> None:
             case '3': break
             case _:
                 output_system.display(f"Unknown selection {selection}")
+
+
+
+# Utility functions
+###############################################################################
+def ask_for_string(prompt: string, length: int) -> string:
+    while True:
+        try:
+            output_system.display("\n" + prompt)
+            result = input_system.get_input(length)
+        except ValueError:
+            output_system.display("Invalid data. Try again.")
+            continue
+        break
+    return result
+
+def ask_for_int(prompt: string, min: int, max: int) -> int:
+    while True:
+        try:
+            output_system.display("\n" + prompt)
+            result = int(input_system.get_input(25))
+            if result > max or result < min:
+                raise ValueError
+        except ValueError:
+            output_system.display("Invalid data. Try again.")
+            continue
+        break
+    return result
+
+
+def ask_yes_or_no(prompt: string) -> bool:
+    while True:
+        try:
+            output_system.display(prompt)
+            result = input_system.get_input(2)
+            result = result.lower()
+            if result != "y" or result != "n":
+                raise ValueError
+            if result == "n":
+                return False
+        except ValueError:
+            output_system.display("Invalid data. Try again.")
+            continue
+        break
+    return True
