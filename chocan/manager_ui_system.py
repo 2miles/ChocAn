@@ -145,7 +145,7 @@ def run_manage_providers_ui() -> None:
         display_manage_providers_ui_menu()
         selection = input_system.get_input(1)
         match selection:
-            case '1': output_system.display("TODO: create provider")
+            case '1': run_create_provider_ui()
             case '2': run_lookup_provider_ui()
             case '3': break
             case _:
