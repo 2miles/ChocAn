@@ -125,7 +125,7 @@ def ask_for_zip() -> string:
             output_system.display("Invalid data. Try again.")
             continue
         break
-    return string(result)
+    return str(result)
 
 
 # Manage Providers Menu
