@@ -1,6 +1,8 @@
+import string
 from chocan import (
     input_system, 
     output_system, 
+    member_system,
 )
 
 # Manager Menu
@@ -46,11 +48,83 @@ def run_manage_members_ui() -> None:
         display_manage_members_ui_menu()
         selection = input_system.get_input(1)
         match selection:
-            case '1': output_system.display("TODO: create member")
+            case '1': run_create_member_ui()
             case '2': run_lookup_member_ui()
             case '3': break
             case _:
                 output_system.display(f"Unknown selection {selection}")
+
+def run_create_member_ui() -> None:
+  name = ask_for_name()
+  street = ask_for_street()
+  city = ask_for_city()
+  state = ask_for_state()
+  zip = ask_for_zip()
+  member_system.create_member(name, street, city, state, zip)
+
+def ask_for_name() -> string:
+    while True:
+        try:
+            output_system.display("\nName: ")
+            result = input_system.get_input(25)
+        except ValueError:
+            output_system.display("Invalid data. Try again.")
+            continue
+        break
+    return result
+
+def ask_for_street() -> string:
+    while True:
+        try:
+            output_system.display("\nStreet Address: ")
+            result = input_system.get_input(25)
+        except ValueError:
+            output_system.display("Invalid data. Try again.")
+            continue
+        break
+    return result
+
+def ask_for_city() -> string:
+    while True:
+        try:
+            output_system.display("\nCity: ")
+            result = input_system.get_input(14)
+        except ValueError:
+            output_system.display("Invalid data. Try again.")
+            continue
+        break
+    return result
+
+def ask_for_state() -> string:
+    """
+    Accepts first two letters of any string, then capitlizes it.
+    """
+    while True:
+        try:
+            output_system.display("\nState: ")
+            result = input_system.get_input(2)
+            result = result.upper()
+        except ValueError:
+            output_system.display("Invalid data. Try again.")
+            continue
+        break
+    return result
+
+def ask_for_zip() -> int:
+    """
+    Accepts any 5 digit integer
+    """
+    while True:
+        try:
+            output_system.display("\nZip code: ")
+            result = int(input_system.get_input(5))
+            if result > 99999 or result < 10000:
+                raise ValueError
+        except ValueError:
+            output_system.display("Invalid data. Try again.")
+            continue
+        break
+    return result
 
 
 # Manage Providers Menu
