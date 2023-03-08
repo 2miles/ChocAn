@@ -1,5 +1,6 @@
 from enum import Enum
 import json
+import os
 
 class InvalidRecordType(Exception):
     pass
@@ -19,6 +20,13 @@ _record_file_names = {
 }
 
 record_directory = "./records/"
+report_directory = "./reports/"
+
+def init():
+    if not os.path.exists(record_directory):
+        os.makedirs(record_directory)
+    if not os.path.exists(report_directory):
+        os.makedirs(report_directory)
 
 # A simple helper for getting the full file path to the record of the
 # given record type.
