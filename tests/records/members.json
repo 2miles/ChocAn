@@ -6,7 +6,8 @@
         "state": "OR",
         "zip": "97214",
         "number": 1,
-        "deleted": false
+        "deleted": false,
+        "active": true
     },
     {
         "name": "Steven Software",
@@ -15,7 +16,8 @@
         "state": "WA",
         "zip": "98686",
         "number": 2,
-        "deleted": false
+        "deleted": false,
+        "active": true
     },
     {
         "name": "Taylor Todds",
@@ -24,6 +26,7 @@
         "state": "OR",
         "zip": "97214",
         "number": 3,
-        "deleted": false
+        "deleted": false,
+        "active": true
     }
 ]

@@ -36,6 +36,8 @@ def file_path(record_type : RecordType) -> str:
 def get_all_records(record_type : RecordType) -> "list[dict]":
     try:
         records = json.load(open(file_path(record_type), "r"))
+        if record_type == RecordType.MEMBER or record_type == RecordType.PROVIDER:
+            records = [ r for r in records if r['deleted'] == False ]
         return records
     except FileNotFoundError:
         return []
@@ -75,7 +77,7 @@ def delete_record(record_type : RecordType, number : int) -> None:
     records = get_all_records(record_type)
     record_index = get_index_of_record(records, number)
     if record_index is not None:
-        del records[record_index]
+        records[record_index]['deleted'] = True
         json.dump(records, open(file_path(record_type), "w+"))
     else:
         raise InvalidRecordNumber("Record number does not exist.")

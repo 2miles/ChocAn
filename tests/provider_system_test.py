@@ -32,6 +32,7 @@ def test_create_provider(record_cleaner):
     assert provider.state  == "OR"
     assert provider.zip    == "34567"
     assert provider.number == 3
+    assert provider.deleted == False
 
     # Check that the provider was actually created in the storage system.
     all_providers = provider_system.get_all_providers()
@@ -55,7 +56,8 @@ def test_update_provider(record_cleaner):
         city   = "Portland",
         state  = "OR",
         zip    = "97214",
-        number = 1
+        number = 1,
+        deleted = False
     )
     assert provider.name   == "Updated Provider 1"
     assert provider.street == "Updated Street"
@@ -63,6 +65,7 @@ def test_update_provider(record_cleaner):
     assert provider.state  == "OR"
     assert provider.zip    == "97214"
     assert provider.number == 1
+    assert provider.deleted == False
 
     # Check that the provider was updated in the storage system.
     updated_provider = provider_system.get_provider(1)

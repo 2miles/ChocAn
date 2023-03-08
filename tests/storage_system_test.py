@@ -27,7 +27,8 @@ def test_create_record_member(record_cleaner):
         "city": "Portland",
         "state": "OR",
         "zip": "97214",
-        "number": 4242
+        "number": 4242,
+        "deleted":False
     }
     storage_system.create_record(storage_system.RecordType.MEMBER, record)
     records = storage_system.get_all_records(storage_system.RecordType.MEMBER)

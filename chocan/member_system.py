@@ -5,13 +5,14 @@ class InvalidMemberNumber(Exception):
 
 class MemberRecord:
     def __init__(self, data: dict):
-        self.name   = data["name"]
-        self.street = data["street"]
-        self.city   = data["city"]
-        self.state  = data["state"]
-        self.zip    = data["zip"]
-        self.active = data.get(True)
-        self.number = data["number"]
+        self.name    = data["name"]
+        self.street  = data["street"]
+        self.city    = data["city"]
+        self.state   = data["state"]
+        self.zip     = data["zip"]
+        self.active  = data["active"]
+        self.number  = data["number"]
+        self.deleted = data["deleted"]
 
 def generate_member_number() -> int:
     members = storage_system.get_all_records(storage_system.RecordType.MEMBER)
@@ -21,47 +22,47 @@ def generate_member_number() -> int:
     return number
 
 def create_member(
-    name   : str, 
-    street : str, 
+    name   : str,
+    street : str,
     city   : str,
-    state  : str, 
+    state  : str,
     zip    : str
 ) -> 'MemberRecord':
     number = generate_member_number()
-
-    # Create a dictionary for "data" using dictionary comprehension  
-    data = {
-        # Key value pairs for the data field except those with None values.
-        key: value for key, value in {
-            "name"   : name,
-            "street" : street,
-            "city"   : city,
-            "state"  : state,
-            "zip"    : zip,
-            "number" : number
-        # Check that the data fields are not None.
-        }.items() if value is not None
-    }
-    member_record = MemberRecord(data)
-    storage_system.create_record(storage_system.RecordType.MEMBER, data)
-    return member_record
-
-def update_member(
-    name   : str, 
-    street : str,
-    city   : str, 
-    state  : str, 
-    zip    : str,
-    #active : bool,
-    number : int
-) -> 'MemberRecord':
+    # Create a dictionary for "data" using dictionary comprehension
     data = {
         "name"   : name,
         "street" : street,
         "city"   : city,
         "state"  : state,
         "zip"    : zip,
-        "number" : number
+        "number" : number,
+        "active" : True,
+        "deleted" : False
+    }
+    member_record = MemberRecord(data)
+    storage_system.create_record(storage_system.RecordType.MEMBER, data)
+    return member_record
+
+def update_member(
+    name   : str,
+    street : str,
+    city   : str,
+    state  : str,
+    zip    : str,
+    active : bool,
+    number : int,
+    deleted : bool
+) -> 'MemberRecord':
+    data = {
+        "name"    : name,
+        "street"  : street,
+        "city"    : city,
+        "state"   : state,
+        "zip"     : zip,
+        "number"  : number,
+        "deleted" : False,
+        "active"  : active
     }
     member_record = MemberRecord(data)
     storage_system.update_record(storage_system.RecordType.MEMBER, number, data)

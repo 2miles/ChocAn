@@ -5,12 +5,13 @@ class InvalidProviderNumber(Exception):
 
 class ProviderRecord:
     def __init__(self, data: dict):
-        self.name   = data["name"]
-        self.street = data["street"]
-        self.city   = data["city"]
-        self.state  = data["state"]
-        self.zip    = data["zip"]
-        self.number = data["number"]
+        self.name    = data["name"]
+        self.street  = data["street"]
+        self.city    = data["city"]
+        self.state   = data["state"]
+        self.zip     = data["zip"]
+        self.number  = data["number"]
+        self.deleted = data["deleted"]
 
 def generate_provider_number() -> int:
     members = storage_system.get_all_records(storage_system.RecordType.PROVIDER)
@@ -20,38 +21,36 @@ def generate_provider_number() -> int:
     return number
 
 def create_provider(
-    name   : str,
-    street : str,
-    city   : str,
-    state  : str,
-    zip    : str
+    name    : str,
+    street  : str,
+    city    : str,
+    state   : str,
+    zip     : str
 ) -> 'ProviderRecord':
     number = generate_provider_number()
 
-    # Create a dictionary for "data" using dictionary comprehension  
     data = {
-        # Key value pairs for the data field except those with None values.
-        key: value for key, value in {
-            "name"   : name,
-            "street" : street,
-            "city"   : city,
-            "state"  : state,
-            "zip"    : zip,
-            "number" : number
-        # Check that the data fields are not None.
-        }.items() if value is not None
+        "name"   : name,
+        "street" : street,
+        "city"   : city,
+        "state"  : state,
+        "zip"    : zip,
+        "number" : number,
+        "deleted" : False
     }
+
     provider_record = ProviderRecord(data)
     storage_system.create_record(storage_system.RecordType.PROVIDER, data)
     return provider_record
 
-def update_provider( 
-    name   : str, 
-    street : str, 
-    city   : str, 
-    state  : str, 
-    zip    : str,
-    number : int
+def update_provider(
+    name    : str,
+    street  : str,
+    city    : str,
+    state   : str,
+    zip     : str,
+    number  : int,
+    deleted : bool
 ) -> 'ProviderRecord':
     data = {
         "name"   : name,
@@ -59,7 +58,8 @@ def update_provider(
         "city"   : city,
         "state"  : state,
         "zip"    : zip,
-        "number" : number
+        "number" : number,
+        "deleted" : deleted
     }
     provider_record = ProviderRecord(data)
     storage_system.update_record(storage_system.RecordType.PROVIDER, number, data)
