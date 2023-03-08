@@ -1,5 +1,4 @@
 from chocan import provider_system
-import os
 
 def test_get_all_providers(record_cleaner):
     providers = provider_system.get_all_providers()

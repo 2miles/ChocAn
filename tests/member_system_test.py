@@ -1,5 +1,4 @@
 from chocan import member_system
-import os
 
 def test_create_member(record_cleaner):
     member = member_system.create_member(
