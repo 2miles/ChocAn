@@ -39,3 +39,8 @@ def test_get_all_members(record_cleaner):
     assert members[2].state  == "OR"
     assert members[2].zip    == "97214"
     assert members[2].number == 3
+
+# TODO:
+# delete_member
+# update_member
+# get_member

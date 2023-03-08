@@ -32,3 +32,9 @@ def test_create_record_member(record_cleaner):
     records = storage_system.get_all_records(storage_system.RecordType.MEMBER)
     # Test that the record with member number 4242 exists.
     assert next((x for x in records if x['number'] == 4242), None)
+
+# TODO:
+# get_record
+# update_record
+# delete_record
+# create_report

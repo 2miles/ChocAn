@@ -46,7 +46,7 @@ def test_get_provider(record_cleaner):
 
     # fetches a non-existing provider record
     provider = provider_system.get_provider(999999999)
-    assert provider is None
+    assert provider == None
 
 def test_update_provider(record_cleaner):
     provider = provider_system.update_provider(
@@ -74,4 +74,4 @@ def test_delete_provider(record_cleaner):
 
     # Check that provider 2 was deleted from the storage system.
     del_provider = provider_system.get_provider(2)
-    del_provider == None
+    assert del_provider == None
