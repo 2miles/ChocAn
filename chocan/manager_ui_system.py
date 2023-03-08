@@ -3,6 +3,7 @@ from chocan import (
     input_system, 
     output_system, 
     member_system,
+    provider_system,
 )
 
 # Manager Menu
@@ -110,7 +111,7 @@ def ask_for_state() -> string:
         break
     return result
 
-def ask_for_zip() -> int:
+def ask_for_zip() -> string:
     """
     Accepts any 5 digit integer
     """
@@ -124,7 +125,7 @@ def ask_for_zip() -> int:
             output_system.display("Invalid data. Try again.")
             continue
         break
-    return result
+    return string(result)
 
 
 # Manage Providers Menu
@@ -150,6 +151,13 @@ def run_manage_providers_ui() -> None:
             case _:
                 output_system.display(f"Unknown selection {selection}")
 
+def run_create_provider_ui() -> None:
+  name = ask_for_name()
+  street = ask_for_street()
+  city = ask_for_city()
+  state = ask_for_state()
+  zip = ask_for_zip()
+  provider_system.create_provider(name, street, city, state, zip)
 
 # Generate Reports Menu
 ###############################################################################
