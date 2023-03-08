@@ -1,7 +1,7 @@
-import string
 from chocan import (
     input_system, 
     output_system, 
+    ui_system,
     member_system,
     provider_system,
 )
@@ -56,11 +56,11 @@ def run_manage_members_ui() -> None:
                 output_system.display(f"Unknown selection {selection}")
 
 def run_create_member_ui() -> None:
-  name = ask_for_string("Name: ", input_system.MAX_NAME)
-  street = ask_for_string("Street Address: ", input_system.MAX_NAME)
-  city = ask_for_string("City: ", input_system.MAX_CITY)
-  state = ask_for_string("State: ", input_system.MAX_STATE).upper()
-  zip = str(ask_for_int("Zip: ", input_system.MIN_ZIP, input_system.MAX_ZIP))
+  name = ui_system.ask_for_string("Name: ", input_system.MAX_NAME)
+  street = ui_system.ask_for_string("Street Address: ", input_system.MAX_NAME)
+  city = ui_system.ask_for_string("City: ", input_system.MAX_CITY)
+  state = ui_system.ask_for_string("State: ", input_system.MAX_STATE).upper()
+  zip = str(ui_system.ask_for_int("Zip: ", input_system.MIN_ZIP, input_system.MAX_ZIP))
 
   member_system.create_member(name, street, city, state, zip)
 
@@ -89,12 +89,13 @@ def run_manage_providers_ui() -> None:
                 output_system.display(f"Unknown selection {selection}")
 
 def run_create_provider_ui() -> None:
-  name = ask_for_string("Name: ", input_system.MAX_NAME)
-  street = ask_for_string("Street Address: ", input_system.MAX_NAME)
-  city = ask_for_string("City: ", input_system.MAX_CITY)
-  state = ask_for_string("State: ", input_system.MAX_STATE).upper()
-  zip = str(ask_for_int("Zip: ", input_system.MIN_ZIP, input_system.MAX_ZIP))
+  name = ui_system.ask_for_string("Name: ", input_system.MAX_NAME)
+  street = ui_system.ask_for_string("Street Address: ", input_system.MAX_NAME)
+  city = ui_system.ask_for_string("City: ", input_system.MAX_CITY)
+  state = ui_system.ask_for_string("State: ", input_system.MAX_STATE).upper()
+  zip = str(ui_system.ask_for_int("Zip: ", input_system.MIN_ZIP, input_system.MAX_ZIP))
   provider_system.create_provider(name, street, city, state, zip)
+
 
 # Generate Reports Menu
 ###############################################################################
@@ -170,47 +171,3 @@ def run_lookup_provider_ui() -> None:
             case '3': break
             case _:
                 output_system.display(f"Unknown selection {selection}")
-
-
-
-# Utility functions
-###############################################################################
-def ask_for_string(prompt: string, length: int) -> string:
-    while True:
-        try:
-            output_system.display("\n" + prompt)
-            result = input_system.get_input(length)
-        except ValueError:
-            output_system.display("Invalid data. Try again.")
-            continue
-        break
-    return result
-
-def ask_for_int(prompt: string, min: int, max: int) -> int:
-    while True:
-        try:
-            output_system.display("\n" + prompt)
-            result = int(input_system.get_input(25))
-            if result > max or result < min:
-                raise ValueError
-        except ValueError:
-            output_system.display("Invalid data. Try again.")
-            continue
-        break
-    return result
-
-def ask_yes_or_no(prompt: string) -> bool:
-    while True:
-        try:
-            output_system.display(prompt)
-            result = input_system.get_input(2)
-            result = result.lower()
-            if result != "y" or result != "n":
-                raise ValueError
-            if result == "n":
-                return False
-        except ValueError:
-            output_system.display("Invalid data. Try again.")
-            continue
-        break
-    return True
