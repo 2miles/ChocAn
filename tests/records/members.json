@@ -5,7 +5,8 @@
         "city": "Portlandia",
         "state": "OR",
         "zip": "97214",
-        "number": 1
+        "number": 1,
+        "deleted": false
     },
     {
         "name": "Steven Software",
@@ -13,7 +14,8 @@
         "city": "Vancouver",
         "state": "WA",
         "zip": "98686",
-        "number": 2
+        "number": 2,
+        "deleted": false
     },
     {
         "name": "Taylor Todds",
@@ -21,6 +23,7 @@
         "city": "Portlandia",
         "state": "OR",
         "zip": "97214",
-        "number": 3
+        "number": 3,
+        "deleted": false
     }
 ]

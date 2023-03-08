@@ -4,6 +4,9 @@ import json
 class InvalidRecordType(Exception):
     pass
 
+class InvalidRecordNumber(Exception):
+    pass
+
 class RecordType(Enum):
     MEMBER   = 1
     PROVIDER = 2
@@ -54,6 +57,8 @@ def update_record(record_type: RecordType, number: int, data: dict) -> None:
     if record_index is not None:
         records[record_index] = data
         json.dump(records, open(file_path(record_type), "w"))
+    else:
+        raise InvalidRecordNumber("Record number does not exist.")
     return None
 
 def delete_record(record_type : RecordType, number : int) -> None:
@@ -64,4 +69,6 @@ def delete_record(record_type : RecordType, number : int) -> None:
     if record_index is not None:
         del records[record_index]
         json.dump(records, open(file_path(record_type), "w"))
+    else:
+        raise InvalidRecordNumber("Record number does not exist.")
     return None
