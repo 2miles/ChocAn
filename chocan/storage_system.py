@@ -43,7 +43,7 @@ def get_all_records(record_type : RecordType) -> "list[dict]":
 def create_record(record_type : RecordType, data : dict) -> None:
     records = get_all_records(record_type)
     records.append(data)
-    json.dump(records, open(file_path(record_type), "w"))
+    json.dump(records, open(file_path(record_type), "w+"))
     return None
 
 def get_index_of_record(records: "list[dict]", number: int) -> int:
@@ -64,7 +64,7 @@ def update_record(record_type: RecordType, number: int, data: dict) -> None:
     record_index = get_index_of_record(records, number)
     if record_index is not None:
         records[record_index] = data
-        json.dump(records, open(file_path(record_type), "w"))
+        json.dump(records, open(file_path(record_type), "w+"))
     else:
         raise InvalidRecordNumber("Record number does not exist.")
     return None
@@ -76,7 +76,7 @@ def delete_record(record_type : RecordType, number : int) -> None:
     record_index = get_index_of_record(records, number)
     if record_index is not None:
         del records[record_index]
-        json.dump(records, open(file_path(record_type), "w"))
+        json.dump(records, open(file_path(record_type), "w+"))
     else:
         raise InvalidRecordNumber("Record number does not exist.")
     return None
