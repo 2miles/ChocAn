@@ -56,11 +56,11 @@ def run_manage_members_ui() -> None:
                 output_system.display(f"Unknown selection {selection}")
 
 def run_create_member_ui() -> None:
-  name = ask_for_string("Name: ", 25)
-  street = ask_for_string("Street Address: ", 25)
-  city = ask_for_string("City: ", 14)
-  state = ask_for_string("State: ", 2).upper()
-  zip = str(ask_for_int("Zip: ", max = 10000, min = 99999))
+  name = ask_for_string("Name: ", input_system.MAX_NAME)
+  street = ask_for_string("Street Address: ", input_system.MAX_NAME)
+  city = ask_for_string("City: ", input_system.MAX_CITY)
+  state = ask_for_string("State: ", input_system.MAX_STATE).upper()
+  zip = str(ask_for_int("Zip: ", input_system.MIN_ZIP, input_system.MAX_ZIP))
 
   member_system.create_member(name, street, city, state, zip)
 
@@ -89,11 +89,11 @@ def run_manage_providers_ui() -> None:
                 output_system.display(f"Unknown selection {selection}")
 
 def run_create_provider_ui() -> None:
-  name = ask_for_string("Name: ", 25)
-  street = ask_for_string("Street Address: ", 25)
-  city = ask_for_string("City: ", 14)
-  state = ask_for_string("State: ", 2).upper()
-  zip = str(ask_for_int("Zip: ", max = 10000, min = 99999))
+  name = ask_for_string("Name: ", input_system.MAX_NAME)
+  street = ask_for_string("Street Address: ", input_system.MAX_NAME)
+  city = ask_for_string("City: ", input_system.MAX_CITY)
+  state = ask_for_string("State: ", input_system.MAX_STATE).upper()
+  zip = str(ask_for_int("Zip: ", input_system.MIN_ZIP, input_system.MAX_ZIP))
   provider_system.create_provider(name, street, city, state, zip)
 
 # Generate Reports Menu
@@ -198,7 +198,6 @@ def ask_for_int(prompt: string, min: int, max: int) -> int:
             continue
         break
     return result
-
 
 def ask_yes_or_no(prompt: string) -> bool:
     while True:
