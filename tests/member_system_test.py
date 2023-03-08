@@ -16,7 +16,7 @@ def test_create_member(record_cleaner):
     assert member.zip    == "34567"
     assert member.number == 4
 
-def test_get_all_members(record_cleaner):
+def test_get_all_members(storage_records):
     members = member_system.get_all_members()
     assert len(members) == 3
     assert members[0].name   == "Patty Tester"
@@ -40,7 +40,36 @@ def test_get_all_members(record_cleaner):
     assert members[2].zip    == "97214"
     assert members[2].number == 3
 
-# TODO:
-# delete_member
-# update_member
-# get_member
+def test_get_member(storage_records):
+    member = member_system.get_member(3)
+    assert member.name   == "Taylor Todds"
+    assert member.street == "1900 Morrison St"
+    assert member.city   == "Portlandia"
+    assert member.state  == "OR"
+    assert member.zip    == "97214"
+    assert member.number == 3
+
+def test_delete_member(record_cleaner):
+    member = member_system.get_member(3)
+    assert member.name == "Taylor Todds"
+    member_system.delete_member(3)
+    member = member_system.get_member(3)
+    assert member == None
+
+def test_update_member(record_cleaner):
+    member = member_system.get_member(2)
+    assert member.name != "Updated Name"
+    assert member.zip != "123123"
+    updated_member = member_system.update_member(
+        name = "Updated Name",
+        street = member.street,
+        city = member.city,
+        state = member.state,
+        zip = "123123",
+        active = member.active,
+        number = member.number,
+        deleted = member.deleted
+    )
+    member = member_system.get_member(2)
+    assert member.name == "Updated Name"
+    assert member.zip == "123123"
