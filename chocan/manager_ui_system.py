@@ -110,7 +110,7 @@ def ask_for_state() -> string:
         break
     return result
 
-def ask_for_zip() -> int:
+def ask_for_zip() -> string:
     """
     Accepts any 5 digit integer
     """
@@ -124,7 +124,7 @@ def ask_for_zip() -> int:
             output_system.display("Invalid data. Try again.")
             continue
         break
-    return result
+    return string(result)
 
 
 # Manage Providers Menu
