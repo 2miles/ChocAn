@@ -70,7 +70,7 @@ def get_all_providers() -> list['ProviderRecord']:
     records = list(map(lambda r : ProviderRecord(r), records))
     return records
 
-def get_provider(number: int) -> list['ProviderRecord']:
+def get_provider(number: int) -> 'ProviderRecord' | None:
     record = storage_system.get_record(storage_system.RecordType.PROVIDER, number)
     return ProviderRecord(record) if record else None
 
