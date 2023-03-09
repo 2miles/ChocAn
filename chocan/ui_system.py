@@ -75,7 +75,6 @@ def ask_yes_or_no(prompt: string) -> bool:
             # I chose 2 here to make sure that input that is longer than 1 char 
             # is not truncated and accepted
             result = input_system.get_input(2)
-            print(result)
             result = result.lower()
             if result != "y" and result != "n":
                 raise ValueError

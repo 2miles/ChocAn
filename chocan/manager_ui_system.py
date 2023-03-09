@@ -152,7 +152,8 @@ def run_lookup_member_ui() -> None:
 
 def run_update_member_ui() -> None: 
     number = ui_system.ask_for_int("Enter member number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
-    if member_system.get_member(number) == None:
+    member = member_system.get_member(number)
+    if member == None:
         output_system.display("That member does not exitst")
         return
     name = ui_system.ask_for_string("Name: ", constants.MAX_NAME)
@@ -160,10 +161,8 @@ def run_update_member_ui() -> None:
     city = ui_system.ask_for_string("City: ", constants.MAX_CITY)
     state = ui_system.ask_for_string("State: ", constants.MAX_STATE).upper()
     zip = str(ui_system.ask_for_int("Zip: ", constants.MIN_ZIP, constants.MAX_ZIP))
-    activity = ui_system.ask_yes_or_no("Active: (y/n)")
-    deleted = ui_system.ask_yes_or_no("Deleted: (y/n)")
 
-    member_system.update_member(name, street, city, state, zip, activity, number, deleted)
+    member_system.update_member(name, street, city, state, zip, member.active, number, member.deleted)
 
 
 # Lookup Provider Menu
