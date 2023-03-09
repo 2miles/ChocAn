@@ -75,10 +75,11 @@ def display_manage_members_ui_menu() -> None:
     output_system.display(
         "\n\n"
         "********** MANAGE MEMBERS MENU *********\n"
-        "1. Create Member\n"
+        "1. Show Member List\n"
         "2. Lookup Member\n"
-        "3. Update Member\n"
-        "4. Back\n"
+        "3. Create Member\n"
+        "4. Update Member\n"
+        "5. Back\n"
         "----------------------------------------"
     )
 
@@ -87,10 +88,11 @@ def run_manage_members_ui() -> None:
         display_manage_members_ui_menu()
         selection = input_system.get_input(1)
         match selection:
-            case '1': run_create_member_ui()
+            case '1': run_show_member_list_ui()
             case '2': run_lookup_member_ui()
-            case '2': run_update_member_ui()
-            case '4': break
+            case '3': run_create_member_ui()
+            case '4': run_update_member_ui()
+            case '5': break
             case _:
                 output_system.display(f"Unknown selection {selection}")
 
@@ -134,16 +136,24 @@ def run_update_member_ui() -> None:
     )
     output_system.display("Member Updated!\n")
 
+def run_show_member_list_ui() -> None:
+    members = member_system.get_all_members()
+    output_system.display("\nMEMBERS:")
+    for member in members:
+        output_system.display(f"{member.number} \t {member.name}")
+
+
 # Manage Providers Menu
 ###############################################################################
 def display_manage_providers_ui_menu() -> None:
     output_system.display(
         "\n\n"
         "********* MANAGE PROVIDERS MENU ********\n"
-        "1. Create Provider\n"
+        "1. Show Provider List\n"
         "2. Lookup Provider\n"
-        "3. Update Provider\n"
-        "4. Back\n"
+        "3. Create Provider\n"
+        "4. Update Provider\n"
+        "5. Back\n"
         "----------------------------------------"
     )
 
@@ -152,10 +162,11 @@ def run_manage_providers_ui() -> None:
         display_manage_providers_ui_menu()
         selection = input_system.get_input(1)
         match selection:
-            case '1': run_create_provider_ui()
+            case '1': run_show_provider_list_ui()
             case '2': run_lookup_provider_ui()
-            case '3': break
+            case '3': run_create_provider_ui()
             case '4': break
+            case '5': break
             case _:
                 output_system.display(f"Unknown selection {selection}")
 
@@ -196,6 +207,12 @@ def run_update_provider_ui() -> None:
         provider.deleted
     )
     output_system.display("Provider Updated!\n")
+
+def run_show_provider_list_ui() -> None:
+    providers = provider_system.get_all_providers()
+    output_system.display("\nPROVIDERS:")
+    for provider in providers:
+        output_system.display(f"{provider.number} \t {provider.name}")
 
 # Generate Reports Menu
 ###############################################################################
