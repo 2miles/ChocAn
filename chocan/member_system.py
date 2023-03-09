@@ -73,7 +73,7 @@ def get_all_members() -> list['MemberRecord']:
     records = list(map(lambda r : MemberRecord(r), records))
     return records
 
-def get_member(number: int) -> 'MemberRecord' | None:
+def get_member(number: int) -> MemberRecord | None:
     record = storage_system.get_record(storage_system.RecordType.MEMBER, number)
     return MemberRecord(record) if record else None
 
