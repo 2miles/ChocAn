@@ -182,8 +182,22 @@ def run_lookup_provider_ui() -> None:
         display_lookup_provider_ui_menu()
         selection = input_system.get_input(1)
         match selection:
-            case '1': output_system.display("TODO: update provider record")
+            case '1': run_update_provider_ui()
             case '2': output_system.display("TODO: delete provider record")
             case '3': break
             case _:
                 output_system.display(f"Unknown selection {selection}")
+
+def run_update_provider_ui() -> None: 
+    number = ui_system.ask_for_int("Enter provider number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
+    provider = provider_system.get_provider(number)
+    if provider == None:
+        output_system.display("That provider does not exitst")
+        return
+    name = ui_system.ask_for_string("Name: ", constants.MAX_NAME)
+    street = ui_system.ask_for_string("Street Address: ", constants.MAX_NAME)
+    city = ui_system.ask_for_string("City: ", constants.MAX_CITY)
+    state = ui_system.ask_for_string("State: ", constants.MAX_STATE).upper()
+    zip = str(ui_system.ask_for_int("Zip: ", constants.MIN_ZIP, constants.MAX_ZIP))
+
+    provider_system.update_provider(name, street, city, state, zip, number, provider.deleted)
