@@ -1,12 +1,3 @@
-MAX_NAME = 25
-MAX_CITY = 14
-MAX_STATE = 2
-MAX_COMMENT = 100
-MIN_ZIP = 10000
-MAX_ZIP = 99999
-MIN_USER_NUM = 1
-MAX_USER_NUM = 999999999
-
 def get_input(max : int) -> str:
     """
     Strips the input's leading and trailing whitespace and returns the

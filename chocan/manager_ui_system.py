@@ -1,4 +1,5 @@
 from chocan import (
+    constants,
     input_system, 
     output_system, 
     ui_system,
@@ -56,11 +57,11 @@ def run_manage_members_ui() -> None:
                 output_system.display(f"Unknown selection {selection}")
 
 def run_create_member_ui() -> None:
-  name = ui_system.ask_for_string("Name: ", input_system.MAX_NAME)
-  street = ui_system.ask_for_string("Street Address: ", input_system.MAX_NAME)
-  city = ui_system.ask_for_string("City: ", input_system.MAX_CITY)
-  state = ui_system.ask_for_string("State: ", input_system.MAX_STATE).upper()
-  zip = str(ui_system.ask_for_int("Zip: ", input_system.MIN_ZIP, input_system.MAX_ZIP))
+  name = ui_system.ask_for_string("Name: ", constants.MAX_NAME)
+  street = ui_system.ask_for_string("Street Address: ", constants.MAX_NAME)
+  city = ui_system.ask_for_string("City: ", constants.MAX_CITY)
+  state = ui_system.ask_for_string("State: ", constants.MAX_STATE).upper()
+  zip = str(ui_system.ask_for_int("Zip: ", constants.MIN_ZIP, constants.MAX_ZIP))
 
   member_system.create_member(name, street, city, state, zip)
 
@@ -89,11 +90,12 @@ def run_manage_providers_ui() -> None:
                 output_system.display(f"Unknown selection {selection}")
 
 def run_create_provider_ui() -> None:
-  name = ui_system.ask_for_string("Name: ", input_system.MAX_NAME)
-  street = ui_system.ask_for_string("Street Address: ", input_system.MAX_NAME)
-  city = ui_system.ask_for_string("City: ", input_system.MAX_CITY)
-  state = ui_system.ask_for_string("State: ", input_system.MAX_STATE).upper()
-  zip = str(ui_system.ask_for_int("Zip: ", input_system.MIN_ZIP, input_system.MAX_ZIP))
+  name = ui_system.ask_for_string("Name: ", constants.MAX_NAME)
+  street = ui_system.ask_for_string("Street Address: ", constants.MAX_NAME)
+  city = ui_system.ask_for_string("City: ", constants.MAX_CITY)
+  state = ui_system.ask_for_string("State: ", constants.MAX_STATE).upper()
+  zip = str(ui_system.ask_for_int("Zip: ", constants.MIN_ZIP, constants.MAX_ZIP))
+
   provider_system.create_provider(name, street, city, state, zip)
 
 

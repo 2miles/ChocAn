@@ -1,5 +1,6 @@
 import string
 from chocan import (
+    constants,
     input_system, 
     output_system, 
     manager_ui_system, 
@@ -25,7 +26,7 @@ def run_ui() -> None:
             case '1': 
                 manager_ui_system.run_manager_ui() 
             case '2': 
-                number = ask_for_int("Enter provider number: ", input_system.MIN_USER_NUM, input_system.MAX_USER_NUM)
+                number = ask_for_int("Enter provider number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
                 if(verify_provider_number(number)):
                     provider_ui_system.run_provider_ui() 
             case '3': break
