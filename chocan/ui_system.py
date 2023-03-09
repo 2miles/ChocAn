@@ -57,8 +57,10 @@ def ask_for_int(prompt: string, min: int, max: int) -> int:
     while True:
         try:
             output_system.display("\n" + prompt)
-            result = int(input_system.get_input(25))
-            if result > max or result < min:
+            # I chose 10 here because the largest integer we will ever read in is 9
+            # and I want to make sure that input that is too long is not truncated and accepted
+            result = int(input_system.get_input(10))
+            if result < min or result > max:
                 raise ValueError
         except ValueError:
             output_system.display("Invalid data. Try again.")
@@ -70,6 +72,8 @@ def ask_yes_or_no(prompt: string) -> bool:
     while True:
         try:
             output_system.display("\n" + prompt)
+            # I chose 2 here to make sure that input that is longer than 1 char 
+            # is not truncated and accepted
             result = input_system.get_input(2)
             result = result.lower()
             if result != "y" or result != "n":
