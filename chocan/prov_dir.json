@@ -17,22 +17,22 @@
     {
         "code": 4,
         "fee": 50,
-        "name": "30 min Personal Training"
+        "name": "30 min - Personal Training"
     },
     {
         "code": 5,
         "fee": 100,
-        "name": "60 min Personal Training"
+        "name": "60 min - Personal Training"
     },
     {
         "code": 6,
         "fee": 125,
-        "name": "90 min Personal Training"
+        "name": "90 min - Personal Training"
     },
     {
         "code": 7,
         "fee": 100,
-        "name": "30 min General Therapy"
+        "name": "30 min - General Therapy"
     },
     {
         "code": 8,
