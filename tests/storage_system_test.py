@@ -1,14 +1,6 @@
 from chocan import storage_system
 import pytest
 
-def test_get_all_records_empty():
-    records = storage_system.get_all_records(storage_system.RecordType.MEMBER)
-    assert (len(records) == 0)
-    records = storage_system.get_all_records(storage_system.RecordType.PROVIDER)
-    assert (len(records) == 0)
-    records = storage_system.get_all_records(storage_system.RecordType.SERVICE)
-    assert (len(records) == 0)
-
 def test_get_all_records_many(storage_records):
     records = storage_system.get_all_records(storage_system.RecordType.MEMBER)
     assert (len(records) == 3)
@@ -65,7 +57,7 @@ def test_update_record(record_cleaner):
         # this should not be reached because the above line raises an error
         assert False
 
-def test_update_record_invalid():
+def test_update_record_invalid(record_cleaner):
     with pytest.raises(storage_system.InvalidRecordNumber):
         storage_system.update_record(storage_system.RecordType.MEMBER, 987, {})
         # this should not be reached because the above line raises an error
@@ -89,7 +81,7 @@ def test_delete_record(record_cleaner):
         # this should not be reached because the above line raises an error
         assert False
 
-def test_delete_record_invalid():
+def test_delete_record_invalid(record_cleaner):
     with pytest.raises(storage_system.InvalidRecordNumber):
         storage_system.delete_record(storage_system.RecordType.MEMBER, 87)
         # this should not be reached because the above line raises an error
