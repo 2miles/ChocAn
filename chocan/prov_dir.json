@@ -30,22 +30,22 @@
         "name": "90 min Personal Training"
     },
     {
-        "code": 6,
+        "code": 7,
         "fee": 100,
         "name": "30 min General Therapy"
     },
     {
-        "code": 7,
+        "code": 8,
         "fee": 150,
         "name": "60 min - General Therapy"
     },
     {
-        "code": 8,
+        "code": 9,
         "fee": 100,
         "name": "30 min - Dietitian Consult"
     },
     {
-        "code": 9,
+        "code": 10,
         "fee": 50,
         "name": "Chocolate skeet shooting"
     }
