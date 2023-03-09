@@ -8,6 +8,21 @@ from chocan import (
     ui_util
 )
 
+def get_record_input() -> dict:
+    name    = ui_util.ask_for_string("Name: ", constants.MAX_NAME)
+    street  = ui_util.ask_for_string("Street Address: ", constants.MAX_NAME)
+    city    = ui_util.ask_for_string("City: ", constants.MAX_CITY)
+    state   = ui_util.ask_for_string("State: ", constants.MAX_STATE).upper()
+    zip     = str(ui_util.ask_for_int("Zip: ", constants.MIN_ZIP, constants.MAX_ZIP))
+    record  = {
+        'name': name,
+        'street': street,
+        'city': city,
+        'state': state,
+        'zip': zip
+    }
+    return record
+
 # Manager Menu
 ###############################################################################
 def display_manager_ui_menu() -> None:
@@ -58,13 +73,14 @@ def run_manage_members_ui() -> None:
                 output_system.display(f"Unknown selection {selection}")
 
 def run_create_member_ui() -> None:
-    name = ui_util.ask_for_string("Name: ", constants.MAX_NAME)
-    street = ui_util.ask_for_string("Street Address: ", constants.MAX_NAME)
-    city = ui_util.ask_for_string("City: ", constants.MAX_CITY)
-    state = ui_util.ask_for_string("State: ", constants.MAX_STATE).upper()
-    zip = str(ui_util.ask_for_int("Zip: ", constants.MIN_ZIP, constants.MAX_ZIP))
-
-    member = member_system.create_member(name, street, city, state, zip)
+    record = get_record_input()
+    member = member_system.create_member(
+        record['name'],
+        record['street'],
+        record['city'],
+        record['state'],
+        record['zip']
+    )
     output_system.display(
         "Member Created!\n"
         f"Member Number: {member.number}"
@@ -95,14 +111,14 @@ def run_manage_providers_ui() -> None:
                 output_system.display(f"Unknown selection {selection}")
 
 def run_create_provider_ui() -> None:
-    name = ui_util.ask_for_string("Name: ", constants.MAX_NAME)
-    street = ui_util.ask_for_string("Street Address: ", constants.MAX_NAME)
-    city = ui_util.ask_for_string("City: ", constants.MAX_CITY)
-    state = ui_util.ask_for_string("State: ", constants.MAX_STATE).upper()
-    zip = str(ui_util.ask_for_int("Zip: ", constants.MIN_ZIP, constants.MAX_ZIP))
-
-    provider_system.create_provider(name, street, city, state, zip)
-
+    record = get_record_input()
+    provider_system.create_provider(
+        record['name'],
+        record['street'],
+        record['city'],
+        record['state'],
+        record['zip']
+    )
 
 # Generate Reports Menu
 ###############################################################################
@@ -131,78 +147,53 @@ def run_generate_reports_ui() -> None:
             case _:
                 output_system.display(f"Unknown selection {selection}")
 
-
-# Lookup Member Menu
-###############################################################################
-def display_lookup_manager_ui_menu() -> None:
-    output_system.display(
-        "\n\n"
-        "********** LOOKUP MEMBER MENU **********\n"
-        "1. Update Member\n"
-        "2. Delete Member\n"
-        "3. Back\n"
-        "----------------------------------------"
-    )
-
 def run_lookup_member_ui() -> None:
-    while True:
-        display_lookup_manager_ui_menu()
-        selection = input_system.get_input(1)
-        match selection:
-            case '1': run_update_member_ui()
-            case '2': output_system.display("TODO: delete member record")
-            case '3': break
-            case _:
-                output_system.display(f"Unknown selection {selection}")
+    number = ui_util.ask_for_int("Enter member number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
+    member = member_system.get_member(number)
+    if member == None:
+        output_system.display("That member does not exist")
+        return
+    # TODO
 
 def run_update_member_ui() -> None:
     number = ui_util.ask_for_int("Enter member number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
     member = member_system.get_member(number)
     if member == None:
-        output_system.display("That member does not exitst")
+        output_system.display("That member does not exist")
         return
-    name = ui_util.ask_for_string("Name: ", constants.MAX_NAME)
-    street = ui_util.ask_for_string("Street Address: ", constants.MAX_NAME)
-    city = ui_util.ask_for_string("City: ", constants.MAX_CITY)
-    state = ui_util.ask_for_string("State: ", constants.MAX_STATE).upper()
-    zip = str(ui_util.ask_for_int("Zip: ", constants.MIN_ZIP, constants.MAX_ZIP))
-
-    member_system.update_member(name, street, city, state, zip, member.active, number, member.deleted)
-
-
-# Lookup Provider Menu
-###############################################################################
-def display_lookup_provider_ui_menu() -> None:
-    output_system.display(
-        "\n\n"
-        "********* LOOKUP PROVIDER MENU *********\n"
-        "1. Update Provider\n"
-        "2. Delete Provider\n"
-        "3. Back\n"
-        "----------------------------------------"
+    record = get_record_input()
+    member_system.update_member(
+        record['name'],
+        record['street'],
+        record['city'],
+        record['state'],
+        record['zip'],
+        member.active,
+        number,
+        member.deleted
     )
 
 def run_lookup_provider_ui() -> None:
-    while True:
-        display_lookup_provider_ui_menu()
-        selection = input_system.get_input(1)
-        match selection:
-            case '1': run_update_provider_ui()
-            case '2': output_system.display("TODO: delete provider record")
-            case '3': break
-            case _:
-                output_system.display(f"Unknown selection {selection}")
+    number = ui_util.ask_for_int("Enter provider number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
+    member = provider_system.get_provider(number)
+    if member == None:
+        output_system.display("That provider does not exist")
+        return
+    # TODO
 
 def run_update_provider_ui() -> None:
     number = ui_util.ask_for_int("Enter provider number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
     provider = provider_system.get_provider(number)
     if provider == None:
-        output_system.display("That provider does not exitst")
+        output_system.display("That provider does not exist")
         return
-    name = ui_util.ask_for_string("Name: ", constants.MAX_NAME)
-    street = ui_util.ask_for_string("Street Address: ", constants.MAX_NAME)
-    city = ui_util.ask_for_string("City: ", constants.MAX_CITY)
-    state = ui_util.ask_for_string("State: ", constants.MAX_STATE).upper()
-    zip = str(ui_util.ask_for_int("Zip: ", constants.MIN_ZIP, constants.MAX_ZIP))
-
-    provider_system.update_provider(name, street, city, state, zip, number, provider.deleted)
+    record = get_record_input()
+    provider_system.update_provider(
+        record['name'],
+        record['street'],
+        record['city'],
+        record['state'],
+        record['zip'],
+        number,
+        provider.deleted
+    )
