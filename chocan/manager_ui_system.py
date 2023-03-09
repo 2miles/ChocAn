@@ -64,7 +64,11 @@ def run_create_member_ui() -> None:
     state = ui_util.ask_for_string("State: ", constants.MAX_STATE).upper()
     zip = str(ui_util.ask_for_int("Zip: ", constants.MIN_ZIP, constants.MAX_ZIP))
 
-    member_system.create_member(name, street, city, state, zip)
+    member = member_system.create_member(name, street, city, state, zip)
+    output_system.display(
+        "Member Created!\n"
+        f"Member Number: {member.number}"
+    )
 
 
 # Manage Providers Menu
