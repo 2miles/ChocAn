@@ -57,13 +57,13 @@ def run_manage_members_ui() -> None:
                 output_system.display(f"Unknown selection {selection}")
 
 def run_create_member_ui() -> None:
-  name = ui_system.ask_for_string("Name: ", constants.MAX_NAME)
-  street = ui_system.ask_for_string("Street Address: ", constants.MAX_NAME)
-  city = ui_system.ask_for_string("City: ", constants.MAX_CITY)
-  state = ui_system.ask_for_string("State: ", constants.MAX_STATE).upper()
-  zip = str(ui_system.ask_for_int("Zip: ", constants.MIN_ZIP, constants.MAX_ZIP))
-
-  member_system.create_member(name, street, city, state, zip)
+    name = ui_system.ask_for_string("Name: ", constants.MAX_NAME)
+    street = ui_system.ask_for_string("Street Address: ", constants.MAX_NAME)
+    city = ui_system.ask_for_string("City: ", constants.MAX_CITY)
+    state = ui_system.ask_for_string("State: ", constants.MAX_STATE).upper()
+    zip = str(ui_system.ask_for_int("Zip: ", constants.MIN_ZIP, constants.MAX_ZIP))
+    
+    member_system.create_member(name, street, city, state, zip)
 
 
 # Manage Providers Menu
@@ -90,13 +90,13 @@ def run_manage_providers_ui() -> None:
                 output_system.display(f"Unknown selection {selection}")
 
 def run_create_provider_ui() -> None:
-  name = ui_system.ask_for_string("Name: ", constants.MAX_NAME)
-  street = ui_system.ask_for_string("Street Address: ", constants.MAX_NAME)
-  city = ui_system.ask_for_string("City: ", constants.MAX_CITY)
-  state = ui_system.ask_for_string("State: ", constants.MAX_STATE).upper()
-  zip = str(ui_system.ask_for_int("Zip: ", constants.MIN_ZIP, constants.MAX_ZIP))
+    name = ui_system.ask_for_string("Name: ", constants.MAX_NAME)
+    street = ui_system.ask_for_string("Street Address: ", constants.MAX_NAME)
+    city = ui_system.ask_for_string("City: ", constants.MAX_CITY)
+    state = ui_system.ask_for_string("State: ", constants.MAX_STATE).upper()
+    zip = str(ui_system.ask_for_int("Zip: ", constants.MIN_ZIP, constants.MAX_ZIP))
 
-  provider_system.create_provider(name, street, city, state, zip)
+    provider_system.create_provider(name, street, city, state, zip)
 
 
 # Generate Reports Menu
@@ -144,11 +144,26 @@ def run_lookup_member_ui() -> None:
         display_lookup_manager_ui_menu()
         selection = input_system.get_input(1)
         match selection:
-            case '1': output_system.display("TODO: update member record")
+            case '1': run_update_member_ui()
             case '2': output_system.display("TODO: delete member record")
             case '3': break
             case _:
                 output_system.display(f"Unknown selection {selection}")
+
+def run_update_member_ui() -> None: 
+    number = ui_system.ask_for_int("Enter member number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
+    if member_system.get_member(number) == None:
+        output_system.display("That member does not exitst")
+        return
+    name = ui_system.ask_for_string("Name: ", constants.MAX_NAME)
+    street = ui_system.ask_for_string("Street Address: ", constants.MAX_NAME)
+    city = ui_system.ask_for_string("City: ", constants.MAX_CITY)
+    state = ui_system.ask_for_string("State: ", constants.MAX_STATE).upper()
+    zip = str(ui_system.ask_for_int("Zip: ", constants.MIN_ZIP, constants.MAX_ZIP))
+    activity = ui_system.ask_yes_or_no("Active: (y/n)")
+    deleted = ui_system.ask_yes_or_no("Deleted: (y/n)")
+
+    member_system.update_member(name, street, city, state, zip, activity, number, deleted)
 
 
 # Lookup Provider Menu
