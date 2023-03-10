@@ -19,7 +19,6 @@ def get_service_record_input() -> dict:
     now             = datetime.now()
     date_of_service = today.strftime("%d-%m-%Y")
     date_received   = now.strftime("%d-%m-%Y %H:%M:%S")
-    comments        = ui_util.ask_for_string("Comments: ", constants.MAX_COMMENT)
 
     record  = {
         'provider_number': provider_number,
@@ -84,6 +83,5 @@ def run_create_service_record_ui() -> None:
         record['fee'],
         record['date_of_service'],
         record['date_received'],
-        record['comments']
     )
     output_system.display("\nService Record Created\n")

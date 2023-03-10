@@ -9,7 +9,6 @@ class ServiceRecord:
         self.fee = data['fee']
         self.date_of_service = data['date_of_service']
         self.date_received = data['date_received']
-        self.comments = data['comments']
 
 def get_all_services() -> list['ServiceRecord']:
     records = storage_system.get_all_records(storage_system.RecordType.SERVICE)
@@ -24,7 +23,6 @@ def create_service_record(
     fee             : str,
     date_of_service : str,
     date_received   : str,
-    comments        : str
 ) -> 'ServiceRecord':
     # Create a dictionary for "data" using dictionary comprehension
     data = {
@@ -35,7 +33,6 @@ def create_service_record(
         "fee"           : fee,
         "date_of_service" : date_of_service,
         "date_received" : date_received,
-        "comments"      : comments
     }
     service_record = ServiceRecord(data)
     storage_system.create_record(storage_system.RecordType.SERVICE, data)
