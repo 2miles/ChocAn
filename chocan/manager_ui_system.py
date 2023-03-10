@@ -165,7 +165,7 @@ def run_manage_providers_ui() -> None:
             case '1': run_show_provider_list_ui()
             case '2': run_lookup_provider_ui()
             case '3': run_create_provider_ui()
-            case '4': break
+            case '4': run_update_provider_ui()
             case '5': break
             case _:
                 output_system.display(f"Unknown selection {selection}")
