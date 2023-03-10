@@ -21,4 +21,5 @@ python3 chocan.py
 
 ```sh
 python3 -m pytest
+python3 -m pytest -v   //verbose flag
 ```
