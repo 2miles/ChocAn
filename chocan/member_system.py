@@ -61,7 +61,7 @@ def update_member(
         "state"   : state,
         "zip"     : zip,
         "number"  : number,
-        "deleted" : False,
+        "deleted" : deleted,
         "active"  : active
     }
     member_record = MemberRecord(data)

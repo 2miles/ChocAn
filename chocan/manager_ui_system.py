@@ -5,7 +5,6 @@ from chocan import (
     ui_util,
     member_system,
     provider_system,
-    ui_util
 )
 
 def get_record_input() -> dict:
@@ -79,7 +78,8 @@ def display_manage_members_ui_menu() -> None:
         "2. Lookup Member\n"
         "3. Create Member\n"
         "4. Update Member\n"
-        "5. Back\n"
+        "5. Delete Member\n"
+        "6. Back\n"
         "----------------------------------------"
     )
 
@@ -92,7 +92,8 @@ def run_manage_members_ui() -> None:
             case '2': run_lookup_member_ui()
             case '3': run_create_member_ui()
             case '4': run_update_member_ui()
-            case '5': break
+            case '5': run_delete_member_ui()
+            case '6': break
             case _:
                 output_system.display(f"Unknown selection {selection}")
 
@@ -135,6 +136,29 @@ def run_update_member_ui() -> None:
         member.deleted
     )
     output_system.display("Member Updated!\n")
+
+def run_delete_member_ui() -> None:
+    number = ui_util.ask_for_int("Enter member number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
+    member = member_system.get_member(number)
+    if member == None:
+        output_system.display("That member does not exist")
+        return
+    response = ui_util.ask_yes_or_no(f"Delete {member.name}? (y/n)")
+    if response:
+        member.deleted = True
+        member_system.update_member(
+            member.name, 
+            member.street, 
+            member.city, 
+            member.state,
+            member.zip,
+            member.active,
+            member.number,
+            member.deleted
+        )
+    output_system.display("Member Updated!\n")
+
+
 
 def run_show_member_list_ui() -> None:
     members = member_system.get_all_members()
