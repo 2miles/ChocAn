@@ -29,7 +29,7 @@ def ask_for_int(prompt: str, min: int, max: int) -> int:
         break
     return result
 
-def ask_for_float(prompt: str, min: int, max: int) -> int:
+def ask_for_float(prompt: str, min: int, max: int) -> float:
     while True:
         try:
             output_system.display("\n" + prompt)
