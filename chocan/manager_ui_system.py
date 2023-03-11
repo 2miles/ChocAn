@@ -156,7 +156,7 @@ def run_delete_member_ui() -> None:
             member.number,
             member.deleted
         )
-    output_system.display("Member Updated!\n")
+    output_system.display("Member Deleted!\n")
 
 
 
@@ -177,7 +177,8 @@ def display_manage_providers_ui_menu() -> None:
         "2. Lookup Provider\n"
         "3. Create Provider\n"
         "4. Update Provider\n"
-        "5. Back\n"
+        "5. Delete Provider\n"
+        "6. Back\n"
         "----------------------------------------"
     )
 
@@ -190,7 +191,8 @@ def run_manage_providers_ui() -> None:
             case '2': run_lookup_provider_ui()
             case '3': run_create_provider_ui()
             case '4': run_update_provider_ui()
-            case '5': break
+            case '5': run_delete_provider_ui()
+            case '6': break
             case _:
                 output_system.display(f"Unknown selection {selection}")
 
@@ -231,6 +233,26 @@ def run_update_provider_ui() -> None:
         provider.deleted
     )
     output_system.display("Provider Updated!\n")
+
+def run_delete_provider_ui() -> None:
+    number = ui_util.ask_for_int("Enter provider number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
+    provider = provider_system.get_provider(number)
+    if provider == None:
+        output_system.display("That provider does not exist")
+        return
+    response = ui_util.ask_yes_or_no(f"Delete {provider.name}? (y/n)")
+    if response:
+        provider.deleted = True
+        provider_system.update_provider(
+            provider.name, 
+            provider.street, 
+            provider.city, 
+            provider.state,
+            provider.zip,
+            provider.number,
+            provider.deleted
+        )
+    output_system.display("Provider Deleted!\n")
 
 def run_show_provider_list_ui() -> None:
     providers = provider_system.get_all_providers()
