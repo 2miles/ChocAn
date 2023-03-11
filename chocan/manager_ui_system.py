@@ -164,7 +164,8 @@ def run_show_member_list_ui() -> None:
     members = member_system.get_all_members()
     output_system.display("\nMEMBERS:")
     for member in members:
-        output_system.display(f"{member.number} \t {member.name}")
+        if member.deleted == False:
+            output_system.display(f"{member.number} \t {member.name}")
 
 
 # Manage Providers Menu
@@ -258,7 +259,8 @@ def run_show_provider_list_ui() -> None:
     providers = provider_system.get_all_providers()
     output_system.display("\nPROVIDERS:")
     for provider in providers:
-        output_system.display(f"{provider.number} \t {provider.name}")
+        if provider.deleted == False:
+            output_system.display(f"{provider.number} \t {provider.name}")
 
 # Generate Reports Menu
 ###############################################################################
