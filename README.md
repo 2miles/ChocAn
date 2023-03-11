@@ -19,7 +19,12 @@ python3 chocan.py
 
 ## Running Tests
 
+Basic test run:
 ```sh
 python3 -m pytest
-python3 -m pytest -v   //verbose flag
+```
+
+Verbose test run:
+```sh
+python3 -m pytest -v
 ```
