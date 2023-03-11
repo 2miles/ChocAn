@@ -113,7 +113,7 @@ def run_lookup_member_ui() -> None:
     number = ui_util.ask_for_int("Enter member number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
     member = member_system.get_member(number)
     if member == None:
-        output_system.display("That member does not exist")
+        output_system.display("\nThat member does not exist")
         return
     display_member(member)
 
@@ -122,7 +122,7 @@ def run_update_member_ui() -> None:
     number = ui_util.ask_for_int("Enter member number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
     member = member_system.get_member(number)
     if member == None:
-        output_system.display("That member does not exist")
+        output_system.display("\nThat member does not exist")
         return
     record = get_record_input()
     member_system.update_member(
@@ -141,7 +141,7 @@ def run_delete_member_ui() -> None:
     number = ui_util.ask_for_int("Enter member number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
     member = member_system.get_member(number)
     if member == None:
-        output_system.display("That member does not exist")
+        output_system.display("\nThat member does not exist")
         return
     response = ui_util.ask_yes_or_no(f"Delete {member.name}? (y/n)")
     if response:
@@ -156,7 +156,7 @@ def run_delete_member_ui() -> None:
             member.number,
             member.deleted
         )
-    output_system.display("Member Deleted!\n")
+    output_system.display("\nMember Deleted!")
 
 
 
@@ -205,14 +205,14 @@ def run_create_provider_ui() -> None:
         record['state'],
         record['zip']
     )
-    output_system.display("Provider Created!\n")
+    output_system.display("\nProvider Created!")
     display_provider(provider)
 
 def run_lookup_provider_ui() -> None:
     number = ui_util.ask_for_int("Enter provider number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
     provider = provider_system.get_provider(number)
     if provider == None:
-        output_system.display("That provider does not exist")
+        output_system.display("\nThat provider does not exist")
         return
     display_provider(provider)
 
@@ -220,7 +220,7 @@ def run_update_provider_ui() -> None:
     number = ui_util.ask_for_int("Enter provider number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
     provider = provider_system.get_provider(number)
     if provider == None:
-        output_system.display("That provider does not exist")
+        output_system.display("\nThat provider does not exist")
         return
     record = get_record_input()
     provider_system.update_provider(
@@ -232,13 +232,13 @@ def run_update_provider_ui() -> None:
         number,
         provider.deleted
     )
-    output_system.display("Provider Updated!\n")
+    output_system.display("\nProvider Updated!")
 
 def run_delete_provider_ui() -> None:
     number = ui_util.ask_for_int("Enter provider number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
     provider = provider_system.get_provider(number)
     if provider == None:
-        output_system.display("That provider does not exist")
+        output_system.display("\nThat provider does not exist")
         return
     response = ui_util.ask_yes_or_no(f"Delete {provider.name}? (y/n)")
     if response:
@@ -252,7 +252,7 @@ def run_delete_provider_ui() -> None:
             provider.number,
             provider.deleted
         )
-    output_system.display("Provider Deleted!\n")
+    output_system.display("\nProvider Deleted!")
 
 def run_show_provider_list_ui() -> None:
     providers = provider_system.get_all_providers()
