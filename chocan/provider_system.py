@@ -1,4 +1,5 @@
-from chocan import storage_system
+from chocan import storage_system 
+from constants import MAX_USER_NUM
 
 class InvalidProviderNumber(Exception):
     pass
@@ -16,7 +17,7 @@ class ProviderRecord:
 def generate_provider_number() -> int:
     members = storage_system.get_all_records(storage_system.RecordType.PROVIDER)
     number = max(map(lambda r : r["number"], members)) + 1 if members else 1
-    if number > 999999999:
+    if number > MAX_USER_NUM:
         raise InvalidProviderNumber("Provider number too large: " + str(number))
     return number
 
@@ -29,12 +30,12 @@ def create_provider(
 ) -> 'ProviderRecord':
     number = generate_provider_number()
     data = {
-        "name"   : name,
-        "street" : street,
-        "city"   : city,
-        "state"  : state,
-        "zip"    : zip,
-        "number" : number,
+        "name"    : name,
+        "street"  : street,
+        "city"    : city,
+        "state"   : state,
+        "zip"     : zip,
+        "number"  : number,
         "deleted" : False
     }
     provider_record = ProviderRecord(data)
@@ -50,13 +51,13 @@ def update_provider(
     number  : int,
     deleted : bool
 ) -> 'ProviderRecord':
-    data = {
-        "name"   : name,
-        "street" : street,
-        "city"   : city,
-        "state"  : state,
-        "zip"    : zip,
-        "number" : number,
+    data = {    
+        "name"    : name,
+        "street"  : street,
+        "city"    : city,
+        "state"   : state,
+        "zip"     : zip,
+        "number"  : number,
         "deleted" : deleted
     }
     provider_record = ProviderRecord(data)

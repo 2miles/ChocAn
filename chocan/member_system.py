@@ -1,4 +1,5 @@
 from chocan import storage_system
+from constants import MAX_USER_NUM
 
 class InvalidMemberNumber(Exception):
     pass
@@ -17,7 +18,7 @@ class MemberRecord:
 def generate_member_number() -> int:
     members = storage_system.get_all_records(storage_system.RecordType.MEMBER)
     number = max(map(lambda r : r["number"], members)) + 1 if members else 1
-    if number > 999999999:
+    if number > MAX_USER_NUM:
         raise InvalidMemberNumber("Member number too large: " + str(number))
     return number
 
@@ -31,13 +32,13 @@ def create_member(
     number = generate_member_number()
     # Create a dictionary for "data" using dictionary comprehension
     data = {
-        "name"   : name,
-        "street" : street,
-        "city"   : city,
-        "state"  : state,
-        "zip"    : zip,
-        "number" : number,
-        "active" : True,
+        "name"    : name,
+        "street"  : street,
+        "city"    : city,
+        "state"   : state,
+        "zip"     : zip,
+        "number"  : number,
+        "active"  : True,
         "deleted" : False
     }
     member_record = MemberRecord(data)
@@ -45,13 +46,13 @@ def create_member(
     return member_record
 
 def update_member(
-    name   : str,
-    street : str,
-    city   : str,
-    state  : str,
-    zip    : str,
-    active : bool,
-    number : int,
+    name    : str,
+    street  : str,
+    city    : str,
+    state   : str,
+    zip     : str,
+    active  : bool,
+    number  : int,
     deleted : bool
 ) -> 'MemberRecord':
     data = {
