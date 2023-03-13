@@ -59,3 +59,6 @@ def ask_yes_or_no(prompt: str) -> bool:
             continue
         break
     return True
+
+def fee_format(n : float) -> str:
+    return f'${(n / 100):0.2f}'

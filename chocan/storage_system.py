@@ -82,3 +82,8 @@ def delete_record(record_type : RecordType, number : int) -> None:
     else:
         raise InvalidRecordNumber("Record number does not exist.")
     return None
+
+def create_report(filename : str, data : str) -> None:
+    f = open(report_directory + filename, 'w')
+    f.write(data)
+    f.close()

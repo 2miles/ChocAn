@@ -5,6 +5,7 @@ from chocan import (
     ui_util,
     member_system,
     provider_system,
+    provider_directory_system
 )
 
 def get_record_input() -> dict:
@@ -147,9 +148,9 @@ def run_delete_member_ui() -> None:
     if response:
         member.deleted = True
         member_system.update_member(
-            member.name, 
-            member.street, 
-            member.city, 
+            member.name,
+            member.street,
+            member.city,
             member.state,
             member.zip,
             member.active,
@@ -244,9 +245,9 @@ def run_delete_provider_ui() -> None:
     if response:
         provider.deleted = True
         provider_system.update_provider(
-            provider.name, 
-            provider.street, 
-            provider.city, 
+            provider.name,
+            provider.street,
+            provider.city,
             provider.state,
             provider.zip,
             provider.number,
@@ -270,7 +271,8 @@ def display_generate_reports_ui_menu() -> None:
         "2. Member Service Report\n"
         "3. MGMT Report\n"
         "4. EFT Report\n"
-        "5. Back\n"
+        "5. Provider Directory\n"
+        "6. Back\n"
         "----------------------------------------"
     )
 
@@ -279,10 +281,13 @@ def run_generate_reports_ui() -> None:
         display_generate_reports_ui_menu()
         selection = input_system.get_input(1)
         match selection:
-            case '1': output_system.display("TODO: generate provider report")
+            case '1': output_system.display("TODO")
             case '2': output_system.display("TODO: generate member service report")
             case '3': output_system.display("TODO: generate MGMT report")
             case '4': output_system.display("TODO: generate EFT report")
-            case '5': break
+            case '5':
+                provider_directory_system.generate_provider_directory()
+                output_system.display("Report generated.")
+            case '6': break
             case _:
                 output_system.display(f"Unknown selection {selection}")

@@ -92,7 +92,7 @@ def run_create_service_record_ui() -> None:
         f'Member Number: {service_record.member_name}\n'
         f'Member Name: {service_record.member_name}\n'
         f'Service Code: {service_record.service_code}\n'
-        f'Fee: ${(service_record.fee / 100):0.2f}\n'
+        f'Fee: {ui_util.fee_format(service_record.fee)}\n'
         f'Date of Service: {service_record.date_of_service}\n'
         f'Date Received: {service_record.date_received}\n'
     )
