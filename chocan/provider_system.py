@@ -76,3 +76,7 @@ def get_provider(number: int) -> 'ProviderRecord':
 def delete_provider(number: int) -> None:
     storage_system.delete_record(storage_system.RecordType.PROVIDER, number)
     return None
+
+def verify_provider(name: str, number: int) -> bool:
+    provider = get_provider(number)
+    return True if provider and provider.name.lower() == name.lower() and not provider.deleted else False 
