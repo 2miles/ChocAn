@@ -5,7 +5,8 @@ from chocan import (
     member_system,
     service_system,
     constants,
-    ui_util
+    ui_util,
+    provider_directory_system
 )
 
 
@@ -54,7 +55,9 @@ def run_provider_ui() -> None:
         match selection:
             case '1': run_checkin_member_ui()
             case '2': run_bill_member_ui()
-            case '3': output_system.display("TODO: generate provider directory")
+            case '3':
+                provider_directory_system.generate_provider_directory()
+                output_system.display("Provider Directory generated.")
             case '4': break
             case _:
                 output_system.display(f'Unknown selection {selection}')

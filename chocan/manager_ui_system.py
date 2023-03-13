@@ -287,7 +287,7 @@ def run_generate_reports_ui() -> None:
             case '4': output_system.display("TODO: generate EFT report")
             case '5':
                 provider_directory_system.generate_provider_directory()
-                output_system.display("Report generated.")
+                output_system.display("Provider Directory generated.")
             case '6': break
             case _:
                 output_system.display(f"Unknown selection {selection}")
