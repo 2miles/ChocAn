@@ -34,10 +34,8 @@ def run_ui() -> None:
             case _:
                 output_system.display(f"Unknown selection {selection}")
 
-
-# TODO i have this turned off for now, until we have some data in ./records/providers.json
 def verify_provider_number(provider_number: int) -> bool:
-    ## if provider_system.get_provider(provider_number) == None:
-    ##     output_system.display("Provider does not exit")
-    ##     return False
+    if provider_system.get_provider(provider_number) == None:
+        output_system.display("Provider does not exit")
+        return False
     return True

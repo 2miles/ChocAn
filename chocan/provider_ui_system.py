@@ -5,7 +5,8 @@ from chocan import (
     member_system,
     service_system,
     constants,
-    ui_util
+    ui_util,
+    provider_directory_system
 )
 
 
@@ -54,7 +55,9 @@ def run_provider_ui() -> None:
         match selection:
             case '1': run_checkin_member_ui()
             case '2': run_bill_member_ui()
-            case '3': output_system.display("TODO: generate provider directory")
+            case '3':
+                provider_directory_system.generate_provider_directory()
+                output_system.display("Provider Directory generated.")
             case '4': break
             case _:
                 output_system.display(f'Unknown selection {selection}')
@@ -92,7 +95,7 @@ def run_create_service_record_ui() -> None:
         f'Member Number: {service_record.member_name}\n'
         f'Member Name: {service_record.member_name}\n'
         f'Service Code: {service_record.service_code}\n'
-        f'Fee: ${(service_record.fee / 100):0.2f}\n'
+        f'Fee: {ui_util.fee_format(service_record.fee)}\n'
         f'Date of Service: {service_record.date_of_service}\n'
         f'Date Received: {service_record.date_received}\n'
     )
