@@ -24,20 +24,15 @@ def run_ui() -> None:
         display_main_ui_menu()
         selection = input_system.get_input(1)
         match selection:
-            case '1':
-                manager_ui_system.run_manager_ui()
-            case '2':
-                number = ui_util.ask_for_int("Enter provider number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
-                if(verify_provider_number(number)):
-                    provider_ui_system.run_provider_ui()
-            case '3': break
+            case '1': manager_ui_system.run_manager_ui()
+            case '2': verify_provider_credentials()
+            case '3': quit()
             case _:
                 output_system.display(f"Unknown selection {selection}")
 
-
-# TODO i have this turned off for now, until we have some data in ./records/providers.json
-def verify_provider_number(provider_number: int) -> bool:
-    ## if provider_system.get_provider(provider_number) == None:
-    ##     output_system.display("Provider does not exit")
-    ##     return False
-    return True
+def verify_provider_credentials() -> None:
+    if provider_system.verify_provider(
+        ui_util.ask_for_string("Enter Provider Name: ", constants.MAX_NAME),
+        ui_util.ask_for_int("Enter Provider Number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
+    ):  provider_ui_system.run_provider_ui()
+    else: output_system.display("Invalid Credentials!")
