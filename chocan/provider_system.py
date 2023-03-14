@@ -80,3 +80,13 @@ def delete_provider(number: int) -> None:
 def verify_provider(name: str, number: int) -> bool:
     provider = get_provider(number)
     return True if provider and provider.name.lower() == name.lower() and not provider.deleted else False 
+
+def get_active_provider(number: int) -> 'ProviderRecord':
+    record = storage_system.get_record(storage_system.RecordType.PROVIDER, number)
+    return ProviderRecord(record) if record and not record['deleted'] else None
+
+def get_all_active_providers() -> list['ProviderRecord']:
+    records = storage_system.get_all_records(storage_system.RecordType.PROVIDER)
+    active_records = filter(lambda r: r['deleted'] == False, records)
+    active_providers = list(map(lambda r: ProviderRecord(r), active_records))
+    return active_providers
