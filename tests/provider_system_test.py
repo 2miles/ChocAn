@@ -83,3 +83,10 @@ def test_verify_provider(record_cleaner):
     test_2 = provider_system.verify_provider("Provider 0", 0)
     assert test_1 == True
     assert test_2 == False
+
+def test_get_active_provider(record_cleaner):
+    provider = provider_system.get_active_provider(1)
+    assert provider.deleted == False
+    provider_system.delete_provider(1)
+    provider = provider_system.get_active_provider(1)
+    assert provider == None
