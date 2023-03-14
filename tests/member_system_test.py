@@ -53,7 +53,7 @@ def test_delete_member(record_cleaner):
     assert member.name == "Taylor Todds"
     member_system.delete_member(3)
     member = member_system.get_member(3)
-    assert member == None
+    assert member.deleted == True
 
 def test_update_member(record_cleaner):
     member = member_system.get_member(2)
