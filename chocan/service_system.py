@@ -59,7 +59,6 @@ def create_service_record(
     return service_record
 
 def _sort_service(record):
-    print(datetime.fromisoformat(record.date_of_service))
     return datetime.fromisoformat(record.date_of_service)
 
 def get_services_this_week() -> list['ServiceRecord']:
