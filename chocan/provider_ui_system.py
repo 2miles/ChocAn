@@ -91,6 +91,7 @@ def run_create_service_record_ui() -> None:
         record['fee'],
         record['date_of_service'],
         record['date_received'],
+        record['comments']
     )
     output_system.display("\nService Record Created!\n")
     output_system.display(
@@ -101,4 +102,5 @@ def run_create_service_record_ui() -> None:
         f'Fee: {ui_util.fee_format(service_record.fee)}\n'
         f'Date of Service: {service_record.date_of_service_pretty()}\n'
         f'Date Received: {service_record.date_received_pretty()}\n'
+        f'Comments: {service_record.comments}\n'
     )

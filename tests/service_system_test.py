@@ -22,6 +22,7 @@ def test_create_service_record(record_cleaner):
         fee             = 500,
         date_of_service = date,
         date_received   = date,
+        comments        = "Thanks!"
     )
     assert service.provider_number  == 12
     assert service.member_number    == 20
@@ -30,20 +31,21 @@ def test_create_service_record(record_cleaner):
     assert service.fee              == 500
     assert service.date_of_service  == date
     assert service.date_received    == date
+    assert service.comments         == "Thanks!"
 
 # TODO: sorted by date
 def test_get_services_this_week(record_cleaner):
     storage_system.clear_all_records(storage_system.RecordType.SERVICE)
     # these records should be "this week".
     date1 = datetime.now().isoformat()
-    service_system.create_service_record(1, 1, "Robert 456", 1, 3450, date1, date1)
+    service_system.create_service_record(1, 1, "Robert 456", 1, 3450, date1, date1, None)
     # this date should be listed before the previous record
     date2 = (datetime.now() - timedelta(minutes = 10)).isoformat()
-    service_system.create_service_record(1, 1, "Apple Juice 89", 1, 3450, date2, date2)
+    service_system.create_service_record(1, 1, "Apple Juice 89", 1, 3450, date2, date2, None)
 
     # this record should be "last week"
     date3 = (datetime.now() - timedelta(days = 8)).isoformat()
-    service_system.create_service_record(1, 1, "Steve 123", 1, 40000, date3, date3)
+    service_system.create_service_record(1, 1, "Steve 123", 1, 40000, date3, date3, None)
 
     services = service_system.get_services_this_week()
     services = list(map(lambda s: s.member_name, services))

@@ -10,6 +10,7 @@ class ServiceRecord:
         self.fee = data['fee']
         self.date_of_service = data['date_of_service']
         self.date_received = data['date_received']
+        self.comments = data['comments']
 
     def date_of_service_pretty(self) -> str:
         d = datetime.fromisoformat(self.date_of_service).strftime("%d-%m-%Y")
@@ -43,6 +44,7 @@ def create_service_record(
     fee             : int,
     date_of_service : str,
     date_received   : str,
+    comments         : str
 ) -> 'ServiceRecord':
     # Create a dictionary for "data" using dictionary comprehension
     data = {
@@ -53,6 +55,7 @@ def create_service_record(
         "fee"             : fee,
         "date_of_service" : date_of_service,
         "date_received"   : date_received,
+        "comments"        : comments,
     }
     service_record = ServiceRecord(data)
     storage_system.create_record(storage_system.RecordType.SERVICE, data)
