@@ -35,21 +35,16 @@ def test_create_service_record(record_cleaner):
 def test_get_services_this_week(record_cleaner):
     storage_system.clear_all_records(storage_system.RecordType.SERVICE)
     # these records should be "this week".
-    date1 = (datetime.now() - timedelta(minutes = 10)).isoformat()
+    date1 = datetime.now().isoformat()
     service_system.create_service_record(1, 1, "Robert 456", 1, 3450, date1, date1)
-    date2 = datetime.now().isoformat()
-    service_system.create_service_record(1, 1, "Apple Juice 89", 1, 3450, date1, date1)
+    # this date should be listed before the previous record
+    date2 = (datetime.now() - timedelta(minutes = 10)).isoformat()
+    service_system.create_service_record(1, 1, "Apple Juice 89", 1, 3450, date2, date2)
 
     # this record should be "last week"
     date3 = (datetime.now() - timedelta(days = 8)).isoformat()
     service_system.create_service_record(1, 1, "Steve 123", 1, 40000, date3, date3)
 
     services = service_system.get_services_this_week()
-    print(services)
-    r = next((s for s in services if s.member_name == "Robert 456"), None)
-
-    assert r != None
-    assert r.member_name == "Robert 456"
-
-    n = next((s for s in services if s.member_name == "Steve 123"), None)
-    assert n == None
+    services = list(map(lambda s: s.member_name, services))
+    assert ["Apple Juice 89", "Robert 456"] == services

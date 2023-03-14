@@ -58,7 +58,12 @@ def create_service_record(
     storage_system.create_record(storage_system.RecordType.SERVICE, data)
     return service_record
 
+def _sort_service(record):
+    print(datetime.fromisoformat(record.date_of_service))
+    return datetime.fromisoformat(record.date_of_service)
+
 def get_services_this_week() -> list['ServiceRecord']:
     records = storage_system.get_all_records(storage_system.RecordType.SERVICE)
-    records = map(lambda r: ServiceRecord(r), list(filter(_is_this_week, records)))
+    records = list(map(lambda r: ServiceRecord(r), list(filter(_is_this_week, records))))
+    records.sort(key=_sort_service)
     return records
