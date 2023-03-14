@@ -72,3 +72,10 @@ def test_update_member(record_cleaner):
     member = member_system.get_member(2)
     assert member.name == "Updated Name"
     assert member.zip == "123123"
+
+def test_get_active_member(record_cleaner):
+    member = member_system.get_active_member(1)
+    assert member.deleted == False
+    member_system.delete_member(1)
+    member = member_system.get_active_member(1)
+    assert member == None
