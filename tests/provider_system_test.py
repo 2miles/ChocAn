@@ -76,7 +76,7 @@ def test_delete_provider(record_cleaner):
 
     # Check that provider 2 was deleted from the storage system.
     del_provider = provider_system.get_provider(2)
-    assert del_provider == None
+    assert del_provider.deleted == True
 
 def test_verify_provider(record_cleaner):
     test_1 = provider_system.verify_provider("Provider 1", 1)
