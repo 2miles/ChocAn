@@ -64,7 +64,7 @@ def run_provider_ui() -> None:
 
 def run_checkin_member_ui() -> None:
     number = ui_util.ask_for_int("Enter Member Number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
-    member = member_system.get_member(number)
+    member = member_system.get_active_member(number)
     if member == None:
         output_system.display("That Member does not exist.")
     elif member.active == False:
@@ -74,9 +74,14 @@ def run_checkin_member_ui() -> None:
 
 def run_bill_member_ui() -> None:
     number = ui_util.ask_for_int("Enter Member Number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
-    member = member_system.get_member(number)
-    output_system.display("Validated")
-    run_create_service_record_ui()
+    member = member_system.get_active_member(number)
+    if member == None:
+        output_system.display("That Member does not exist.")
+    elif member.active == False:
+        output_system.display("Member Suspended")
+    else:
+        output_system.display("Validated")
+        run_create_service_record_ui()
 
 def run_create_service_record_ui() -> None:
     record = get_service_record_input()

@@ -83,11 +83,11 @@ def delete_member(number: int) -> None:
     return None
 
 def get_active_member(number: int) -> 'MemberRecord':
-    record = storage_system.get_record(storage_system.RecordType.PROVIDER, number)
+    record = storage_system.get_record(storage_system.RecordType.MEMBER, number)
     return MemberRecord(record) if record and not record['deleted'] else None
 
 def get_all_active_members() -> list['MemberRecord']:
-    records = storage_system.get_all_records(storage_system.RecordType.PROVIDER)
+    records = storage_system.get_all_records(storage_system.RecordType.MEMBER)
     active_records = filter(lambda r: r['deleted'] == False, records)
     active_members = list(map(lambda r: MemberRecord(r), active_records))
     return active_members
