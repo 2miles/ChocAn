@@ -18,11 +18,8 @@ def get_service_record_input() -> dict:
     # turn dollar float into cents int (ex. 999.99 = 99999)
     fee             = int(ui_util.ask_for_float("Service Fee ($): ", constants.MIN_FEE, constants.MAX_FEE) * 100)
     comments        = ui_util.ask_for_string("Comments: ", constants.MAX_NAME, True)
-    today           = datetime.today()
-    now             = datetime.now()
-    # TODO is8601
-    date_of_service = today.strftime("%d-%m-%Y")
-    date_received   = now.strftime("%d-%m-%Y %H:%M:%S")
+    date_of_service = datetime.now().isoformat()
+    date_received   = datetime.now().isoformat()
 
     record  = {
         'provider_number': provider_number,
@@ -102,6 +99,6 @@ def run_create_service_record_ui() -> None:
         f'Member Name: {service_record.member_name}\n'
         f'Service Code: {service_record.service_code}\n'
         f'Fee: {ui_util.fee_format(service_record.fee)}\n'
-        f'Date of Service: {service_record.date_of_service}\n'
-        f'Date Received: {service_record.date_received}\n'
+        f'Date of Service: {service_record.date_of_service_pretty()}\n'
+        f'Date Received: {service_record.date_received_pretty()}\n'
     )

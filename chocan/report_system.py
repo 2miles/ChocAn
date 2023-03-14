@@ -50,6 +50,7 @@ def _build_member_service_report(member, services, providers) -> None:
         f"Member State: {member.state}\n"
         f"Member Zip: {member.zip}\n"
     )
+    # TODO: sort `services` by date
     service_info = map(lambda s: _member_service_info(s, providers), services)
     service_info = "\n".join(service_info)
     info = (
@@ -67,11 +68,10 @@ def _build_member_service_reports(members, services, providers) -> None:
 def generate_provider_report() -> None:
     pass
 
-# TODO: filter by "current week"
 def generate_member_service_report() -> None:
     members = group_by_number(member_system.get_all_members())
     providers = group_by_number(provider_system.get_all_providers())
-    services = group_by_member_number(service_system.get_all_services())
+    services = group_by_member_number(service_system.get_services_this_week())
     _build_member_service_reports(members, services, providers)
     pass
 
