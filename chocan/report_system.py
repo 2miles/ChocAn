@@ -1,4 +1,5 @@
-from datetime import datetime
+from typing import Optional
+from datetime import datetime, timedelta
 import service_system, member_system, provider_system, provider_directory_system, storage_system
 
 def format_file_name(name : str) -> str:
@@ -63,16 +64,29 @@ def _build_member_service_reports(members, services, providers) -> None:
     for n in list(services.keys()):
         _build_member_service_report(members[n], services[n], providers)
 
-#TODO
-def generate_provider_report() -> None:
-    pass
+def generate_service_week_dates() -> dict:
+    today = datetime.utcnow()
+    today_of_week = today.weekday()
+    start_of_week = (today - timedelta(days=today_of_week, hours=today.hour, minutes=today.minute, seconds=today.second, microseconds=today.microsecond)) - timedelta(days=2)
+    end_of_week = start_of_week + timedelta(days=6, hours=23, minutes=59, seconds=59)
+    return {
+        'start_week': start_of_week.strftime("%d-%m-%Y"), 
+        'end_week': end_of_week.strftime("%d-%m-%Y")
+    }
 
-# TODO: filter by "current week"
 def generate_member_service_report() -> None:
+    week = generate_service_week_dates()   
     members = group_by_number(member_system.get_all_members())
     providers = group_by_number(provider_system.get_all_providers())
     services = group_by_member_number(service_system.get_all_services())
-    _build_member_service_reports(members, services, providers)
+
+    filtered_services = {}
+    for member_number, member_services in services.items():
+        filtered_services[member_number] = [service for service in member_services if week['start_week'] <= service.date_of_service <= week['end_week']]
+    _build_member_service_reports(members, filtered_services, providers)
+
+#TODO
+def generate_provider_report() -> None:
     pass
 
 #TODO
