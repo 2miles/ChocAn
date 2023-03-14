@@ -33,11 +33,20 @@ def init():
 def file_path(record_type : RecordType) -> str:
     return record_directory + _record_file_names[record_type]
 
+'''
 def get_all_records(record_type : RecordType) -> "list[dict]":
     try:
         records = json.load(open(file_path(record_type), "r"))
         if record_type == RecordType.MEMBER or record_type == RecordType.PROVIDER:
             records = [ r for r in records if r['deleted'] == False ]
+        return records
+    except FileNotFoundError:
+        return []
+'''
+
+def get_all_records(record_type : RecordType) -> "list[dict]":
+    try:
+        records = json.load(open(file_path(record_type), "r"))
         return records
     except FileNotFoundError:
         return []
