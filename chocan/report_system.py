@@ -34,7 +34,7 @@ def _member_service_info(service, providers) -> str:
     provider_name = providers[service.provider_number].name
     service_name = provider_directory_system.get_provider_service(service.service_code).name
     info = (
-        f"Date of Service: {service.date_of_service}\n"
+        f"Date of Service: {service.date_of_service_pretty()}\n"
         f"Provider Name: {provider_name}\n"
         f"Service Name: {service_name}\n"
     )
