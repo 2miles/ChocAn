@@ -68,13 +68,13 @@ def test_delete_record(record_cleaner):
     assert record1['name'] == "Taylor Todds"
     storage_system.delete_record(storage_system.RecordType.MEMBER, 3)
     record1 = storage_system.get_record(storage_system.RecordType.MEMBER, 3)
-    assert record1 == None
+    assert record1['deleted'] == True
 
     record2 = storage_system.get_record(storage_system.RecordType.PROVIDER, 2)
     assert record2['name'] == "Provider 2"
     storage_system.delete_record(storage_system.RecordType.PROVIDER, 2)
     record2 = storage_system.get_record(storage_system.RecordType.PROVIDER, 2)
-    assert record2 == None
+    assert record2['deleted'] == True
 
     with pytest.raises(storage_system.InvalidRecordType):
         storage_system.delete_record(storage_system.RecordType.SERVICE, 2)
