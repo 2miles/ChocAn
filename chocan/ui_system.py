@@ -31,8 +31,8 @@ def run_ui() -> None:
                 output_system.display(f"Unknown selection {selection}")
 
 def verify_provider_credentials() -> None:
-    if provider_system.verify_provider(
-        ui_util.ask_for_string("Enter Provider Name: ", constants.MAX_NAME),
-        ui_util.ask_for_int("Enter Provider Number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
-    ):  provider_ui_system.run_provider_ui()
-    else: output_system.display("Invalid Credentials!")
+    number = ui_util.ask_for_int("Enter Provider Number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
+    if provider_system.verify_provider(number):
+        provider_ui_system.run_provider_ui()
+    else:
+        output_system.display("Invalid Credentials!")

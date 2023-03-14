@@ -5,7 +5,8 @@ from chocan import (
     ui_util,
     member_system,
     provider_system,
-    provider_directory_system
+    provider_directory_system,
+    report_system
 )
 
 def get_record_input() -> dict:
@@ -288,7 +289,9 @@ def run_generate_reports_ui() -> None:
         selection = input_system.get_input(1)
         match selection:
             case '1': output_system.display("TODO")
-            case '2': output_system.display("TODO: generate member service report")
+            case '2':
+                report_system.generate_member_service_report()
+                output_system.display("Report generated.")
             case '3': output_system.display("TODO: generate MGMT report")
             case '4': output_system.display("TODO: generate EFT report")
             case '5':

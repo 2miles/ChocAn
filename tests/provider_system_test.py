@@ -79,8 +79,8 @@ def test_delete_provider(record_cleaner):
     assert del_provider.deleted == True
 
 def test_verify_provider(record_cleaner):
-    test_1 = provider_system.verify_provider("Provider 1", 1)
-    test_2 = provider_system.verify_provider("Provider 0", 0)
+    test_1 = provider_system.verify_provider(1)
+    test_2 = provider_system.verify_provider(0)
     assert test_1 == True
     assert test_2 == False
 

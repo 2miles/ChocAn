@@ -20,6 +20,7 @@ def get_service_record_input() -> dict:
     comments        = ui_util.ask_for_string("Comments: ", constants.MAX_NAME, True)
     today           = datetime.today()
     now             = datetime.now()
+    # TODO is8601
     date_of_service = today.strftime("%d-%m-%Y")
     date_received   = now.strftime("%d-%m-%Y %H:%M:%S")
 

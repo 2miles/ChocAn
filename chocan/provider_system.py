@@ -1,4 +1,4 @@
-from chocan import storage_system 
+from chocan import storage_system
 from constants import MAX_USER_NUM
 
 class InvalidProviderNumber(Exception):
@@ -51,7 +51,7 @@ def update_provider(
     number  : int,
     deleted : bool
 ) -> 'ProviderRecord':
-    data = {    
+    data = {
         "name"    : name,
         "street"  : street,
         "city"    : city,
@@ -77,9 +77,9 @@ def delete_provider(number: int) -> None:
     storage_system.delete_record(storage_system.RecordType.PROVIDER, number)
     return None
 
-def verify_provider(name: str, number: int) -> bool:
+def verify_provider(number: int) -> bool:
     provider = get_provider(number)
-    return True if provider and provider.name.lower() == name.lower() and not provider.deleted else False 
+    return provider != None
 
 def get_active_provider(number: int) -> 'ProviderRecord':
     record = storage_system.get_record(storage_system.RecordType.PROVIDER, number)
