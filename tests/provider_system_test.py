@@ -87,6 +87,39 @@ def test_verify_provider(record_cleaner):
 def test_get_active_provider(record_cleaner):
     provider = provider_system.get_active_provider(1)
     assert provider.deleted == False
+
+    # Delete one provider and test that their no longer active
     provider_system.delete_provider(1)
     provider = provider_system.get_active_provider(1)
     assert provider == None
+
+def test_get_all_active_providers(record_cleaner):
+    active_providers = provider_system.get_all_active_providers()
+    assert len(active_providers) == 2
+    assert active_providers[0].name    == "Provider 1"
+    assert active_providers[0].street  == "Office Street"
+    assert active_providers[0].city    == "Portland"
+    assert active_providers[0].state   == "OR"
+    assert active_providers[0].zip     == "97214"
+    assert active_providers[0].number  == 1
+    assert active_providers[0].deleted == False
+
+    assert active_providers[1].name    == "Provider 2"
+    assert active_providers[1].street  == "Provider Ave"
+    assert active_providers[1].city    == "Portland"
+    assert active_providers[1].state   == "OR"
+    assert active_providers[1].zip     == "97222"
+    assert active_providers[1].number  == 2
+    assert active_providers[0].deleted == False
+
+    # Delete one provider and test that their no longer active
+    provider_system.delete_provider(1)
+    active_providers = provider_system.get_all_active_providers()
+    assert len(active_providers) == 1
+    assert active_providers[0].name    == "Provider 2"
+    assert active_providers[0].street  == "Provider Ave"
+    assert active_providers[0].city    == "Portland"
+    assert active_providers[0].state   == "OR"
+    assert active_providers[0].zip     == "97222"
+    assert active_providers[0].number  == 2
+    assert active_providers[0].deleted == False
