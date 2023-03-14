@@ -74,8 +74,50 @@ def test_update_member(record_cleaner):
     assert member.zip == "123123"
 
 def test_get_active_member(record_cleaner):
-    member = member_system.get_active_member(1)
-    assert member.deleted == False
+    active_member = member_system.get_active_member(1)
+    assert active_member.deleted == False
+    
+    # Delete one provider and test that their no longer active
     member_system.delete_member(1)
-    member = member_system.get_active_member(1)
-    assert member == None
+    active_member = member_system.get_active_member(1)
+    assert active_member == None
+
+def test_get_all_active_members(record_cleaner):
+    active_members = member_system.get_all_active_members()
+    assert len(active_members) == 3
+    assert active_members[0].name    == "Patty Tester"
+    assert active_members[0].street  == "123 Alphabet"
+    assert active_members[0].city    == "Portlandia"
+    assert active_members[0].state   == "OR"
+    assert active_members[0].zip     == "97214"
+    assert active_members[0].number  == 1
+    assert active_members[0].deleted == False
+
+    assert active_members[1].name    == "Steven Software"
+    assert active_members[1].street  == "10th Circle"
+    assert active_members[1].city    == "Vancouver"
+    assert active_members[1].state   == "WA"
+    assert active_members[1].zip     == "98686"
+    assert active_members[1].number  == 2
+    assert active_members[1].deleted == False
+
+    assert active_members[2].name    == "Taylor Todds"
+    assert active_members[2].street  == "1900 Morrison St"
+    assert active_members[2].city    == "Portlandia"
+    assert active_members[2].state   == "OR"
+    assert active_members[2].zip     == "97214"
+    assert active_members[2].number  == 3
+    assert active_members[2].deleted == False
+
+    # Delete one provider and test that their no longer active
+    member_system.delete_member(1)
+    member_system.delete_member(2)
+    active_members = member_system.get_all_active_members()
+    assert len(active_members) == 1
+    assert active_members[0].name    == "Taylor Todds"
+    assert active_members[0].street  == "1900 Morrison St"
+    assert active_members[0].city    == "Portlandia"
+    assert active_members[0].state   == "OR"
+    assert active_members[0].zip     == "97214"
+    assert active_members[0].number  == 3
+    assert active_members[0].deleted == False
