@@ -112,7 +112,7 @@ def run_create_member_ui() -> None:
 
 def run_lookup_member_ui() -> None:
     number = ui_util.ask_for_int("Enter member number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
-    member = member_system.get_member(number)
+    member = member_system.get_active_member(number)
     if member == None:
         output_system.display("\nThat member does not exist")
         return
@@ -140,7 +140,7 @@ def run_update_member_ui() -> None:
 
 def run_delete_member_ui() -> None:
     number = ui_util.ask_for_int("Enter member number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
-    member = member_system.get_member(number)
+    member = member_system.get_active_member(number)
     if member == None:
         output_system.display("\nThat member does not exist")
         return
@@ -162,7 +162,7 @@ def run_delete_member_ui() -> None:
 
 
 def run_show_member_list_ui() -> None:
-    members = member_system.get_all_members()
+    members = member_system.get_all_active_members()
     output_system.display("\nMEMBERS:")
     for member in members:
         output_system.display(f"{member.number} \t {member.name}")
@@ -211,7 +211,7 @@ def run_create_provider_ui() -> None:
 
 def run_lookup_provider_ui() -> None:
     number = ui_util.ask_for_int("Enter provider number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
-    provider = provider_system.get_provider(number)
+    provider = provider_system.get_active_provider(number)
     if provider == None:
         output_system.display("\nThat provider does not exist")
         return
@@ -237,7 +237,7 @@ def run_update_provider_ui() -> None:
 
 def run_delete_provider_ui() -> None:
     number = ui_util.ask_for_int("Enter provider number: ", constants.MIN_USER_NUM, constants.MAX_USER_NUM)
-    provider = provider_system.get_provider(number)
+    provider = provider_system.get_active_provider(number)
     if provider == None:
         output_system.display("\nThat provider does not exist")
         return
@@ -256,7 +256,7 @@ def run_delete_provider_ui() -> None:
     output_system.display("\nProvider Deleted!")
 
 def run_show_provider_list_ui() -> None:
-    providers = provider_system.get_all_providers()
+    providers = provider_system.get_all_active_providers()
     output_system.display("\nPROVIDERS:")
     for provider in providers:
         output_system.display(f"{provider.number} \t {provider.name}")
