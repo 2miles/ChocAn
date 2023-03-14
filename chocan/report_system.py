@@ -50,7 +50,6 @@ def _build_member_service_report(member, services, providers) -> None:
         f"Member State: {member.state}\n"
         f"Member Zip: {member.zip}\n"
     )
-    # TODO: sort `services` by date
     service_info = map(lambda s: _member_service_info(s, providers), services)
     service_info = "\n".join(service_info)
     info = (
