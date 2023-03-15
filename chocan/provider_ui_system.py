@@ -96,7 +96,7 @@ def run_create_service_record_ui() -> None:
     output_system.display("\nService Record Created!\n")
     output_system.display(
         f'Provider Number: #{service_record.provider_number}\n'
-        f'Member Number: {service_record.member_name}\n'
+        f'Member Number: {service_record.member_number}\n'
         f'Member Name: {service_record.member_name}\n'
         f'Service Code: {service_record.service_code}\n'
         f'Fee: {ui_util.fee_format(service_record.fee)}\n'
