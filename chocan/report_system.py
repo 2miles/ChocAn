@@ -1,5 +1,6 @@
 from datetime import datetime
-import service_system, member_system, provider_system, provider_directory_system, storage_system
+from functools import reduce
+import service_system, member_system, provider_system, provider_directory_system, storage_system, ui_util
 
 def format_file_name(name : str) -> str:
     # replace whitespace with underscore
@@ -22,6 +23,17 @@ def group_by_member_number(records : list['service_system.ServiceRecord']) -> di
             result[r.member_number].append(r)
         else:
             result[r.member_number] = [r]
+    return result
+
+# turns a list of services into a dictionary grouped by the provider number so you
+# can access all the services of a provider by using the provider number as a key
+def group_by_provider_number(records : list['service_system.ServiceRecord']) -> dict:
+    result = {}
+    for r in records:
+        if r.provider_number in result:
+            result[r.provider_number].append(r)
+        else:
+            result[r.provider_number] = [r]
     return result
 
 def _dated_file_name(name : str) -> str:
@@ -63,9 +75,50 @@ def _build_member_service_reports(members, services, providers) -> None:
     for n in list(services.keys()):
         _build_member_service_report(members[n], services[n], providers)
 
-#TODO
+def _provider_service_info(service, members) -> str:
+    member_name = members[service.member_number].name
+    service_name = provider_directory_system.get_provider_service(service.service_code).name
+    info = (
+        f"Date of Service: {service.date_of_service_pretty()}\n"
+        f"Date Received: {service.date_received_pretty()}\n"
+        f"Member Name: {member_name}\n"
+        f"Member Number: {service.member_number}\n"
+        f"Service Code: {service.service_code}\n"
+        f"Fee: {ui_util.fee_format(service.fee)}\n"
+    )
+    return info
+
+def _build_provider_report(provider, services, members) -> None:
+    file_name = _dated_file_name(provider.name)
+    provider_info = (
+        f"Provider Name: {provider.name}\n"
+        f"Provider Number: {provider.number}\n"
+        f"Provider Street: {provider.street}\n"
+        f"Provider City: {provider.city}\n"
+        f"Provider State: {provider.state}\n"
+        f"Provider Zip: {provider.zip}\n"
+    )
+    service_info = map(lambda s: _provider_service_info(s, members), services)
+    service_info = "\n".join(service_info)
+    total_fee = reduce(lambda a, b: a + b, map(lambda s: s.fee, services))
+    info = (
+        f"{provider_info}\n"
+        "Services:\n"
+        f"{service_info}\n"
+        f"Total Consultations: {len(services)}\n"
+        f"Total Fee: {ui_util.fee_format(total_fee)}"
+    )
+    storage_system.create_report(file_name, info)
+
+def _build_provider_reports(providers, services, members) -> None:
+    for n in list(services.keys()):
+        _build_provider_report(providers[n], services[n], members)
+
 def generate_provider_report() -> None:
-    pass
+    members = group_by_number(member_system.get_all_members())
+    providers = group_by_number(provider_system.get_all_providers())
+    services = group_by_provider_number(service_system.get_services_this_week())
+    _build_provider_reports(providers, services, members)
 
 def generate_member_service_report() -> None:
     members = group_by_number(member_system.get_all_members())

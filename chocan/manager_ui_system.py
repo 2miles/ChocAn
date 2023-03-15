@@ -288,7 +288,9 @@ def run_generate_reports_ui() -> None:
         display_generate_reports_ui_menu()
         selection = input_system.get_input(1)
         match selection:
-            case '1': output_system.display("TODO")
+            case '1':
+                report_system.generate_provider_report()
+                output_system.display("Report generated.")
             case '2':
                 report_system.generate_member_service_report()
                 output_system.display("Report generated.")
