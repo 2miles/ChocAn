@@ -17,7 +17,7 @@ def get_service_record_input() -> dict:
     service_code    = ui_util.ask_for_int("Service Code: ", constants.MIN_CODE, constants.MAX_CODE)
     # turn dollar float into cents int (ex. 999.99 = 99999)
     fee             = int(ui_util.ask_for_float("Service Fee ($): ", constants.MIN_FEE, constants.MAX_FEE) * 100)
-    comments        = ui_util.ask_for_string("Comments: ", constants.MAX_NAME, True)
+    comments        = ui_util.ask_for_string("Comments: ", constants.MAX_COMMENT, True)
     date_of_service = datetime.now().isoformat()
     date_received   = datetime.now().isoformat()
 
