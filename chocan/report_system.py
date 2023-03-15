@@ -126,9 +126,9 @@ def _provider_mgmt_info(provider, services) -> str:
 
 def _build_mgmt_report(services, services_by_provider, providers) -> None:
     file_name = _dated_file_name("MGMT")
-    provider_info = map(lambda p: _provider_mgmt_info(providers[p], services_by_provider[p]), providers.keys())
+    provider_info = map(lambda p: _provider_mgmt_info(providers[p], services_by_provider[p]), services_by_provider.keys())
     provider_info = "\n".join(provider_info)
-    total_providers = len(providers.keys())
+    total_providers = len(services_by_provider.keys())
     total_consults = len(services)
     total_fee = reduce(lambda a, b: a + b, map(lambda s: s.fee, services))
     info = (
