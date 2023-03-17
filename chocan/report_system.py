@@ -141,6 +141,21 @@ def _build_mgmt_report(services, services_by_provider, providers) -> None:
     )
     storage_system.create_report(file_name, info)
 
+def _provider_eft_info(provider, services):
+    total_fee = reduce(lambda a, b: a + b, map(lambda s: s.fee, services))
+    info = (
+        f"Provider Name: {provider.name}\n"
+        f"Provider Number: {provider.number}\n"
+        f"Amount to be transferred: {ui_util.fee_format(total_fee)}\n"
+    )
+    return info
+
+def _build_eft_report(providers, services) -> None:
+    file_name = _dated_file_name("EFT")
+    provider_info = map(lambda p: _provider_eft_info(providers[p], services[p]), services.keys())
+    info = "\n".join(provider_info)
+    storage_system.create_report(file_name, info)
+
 def generate_provider_report() -> None:
     members = group_by_number(member_system.get_all_members())
     providers = group_by_number(provider_system.get_all_providers())
@@ -159,6 +174,7 @@ def generate_mgmt_report() -> None:
     providers = group_by_number(provider_system.get_all_providers())
     _build_mgmt_report(services, services_by_provider, providers)
 
-#TODO
 def generate_eft_report() -> None:
-    pass
+    providers = group_by_number(provider_system.get_all_providers())
+    services = group_by_provider_number(service_system.get_services_this_week())
+    _build_eft_report(providers, services)
