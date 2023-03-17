@@ -83,24 +83,27 @@ def run_bill_member_ui() -> None:
 
 def run_create_service_record_ui() -> None:
     record = get_service_record_input()
-    service_record = service_system.create_service_record(
-        record['provider_number'],
-        record['member_number'],
-        record['member_name'],
-        record['service_code'],
-        record['fee'],
-        record['date_of_service'],
-        record['date_received'],
-        record['comments']
-    )
-    output_system.display("\nService Record Created!\n")
-    output_system.display(
-        f'Provider Number: #{service_record.provider_number}\n'
-        f'Member Number: {service_record.member_number}\n'
-        f'Member Name: {service_record.member_name}\n'
-        f'Service Code: {service_record.service_code}\n'
-        f'Fee: {ui_util.fee_format(service_record.fee)}\n'
-        f'Date of Service: {service_record.date_of_service_pretty()}\n'
-        f'Date Received: {service_record.date_received_pretty()}\n'
-        f'Comments: {service_record.comments}\n'
-    )
+    try:
+        service_record = service_system.create_service_record(
+            record['provider_number'],
+            record['member_number'],
+            record['member_name'],
+            record['service_code'],
+            record['fee'],
+            record['date_of_service'],
+            record['date_received'],
+            record['comments']
+        )
+        output_system.display("\nService Record Created!\n")
+        output_system.display(
+            f'Provider Number: #{service_record.provider_number}\n'
+            f'Member Number: {service_record.member_number}\n'
+            f'Member Name: {service_record.member_name}\n'
+            f'Service Code: {service_record.service_code}\n'
+            f'Fee: {ui_util.fee_format(service_record.fee)}\n'
+            f'Date of Service: {service_record.date_of_service_pretty()}\n'
+            f'Date Received: {service_record.date_received_pretty()}\n'
+            f'Comments: {service_record.comments}\n'
+        )
+    except service_system.MaxFeeError:
+        output_system.display("\nWeekly service fee has exceeded the $99,999.99 limit.")

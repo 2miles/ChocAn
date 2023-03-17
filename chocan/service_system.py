@@ -1,5 +1,9 @@
 from datetime import datetime, timedelta
 from chocan import storage_system
+from functools import reduce
+
+class MaxFeeError(Exception):
+    pass
 
 class ServiceRecord:
     def __init__(self, data: dict):
@@ -57,6 +61,11 @@ def create_service_record(
         "date_received"   : date_received,
         "comments"        : comments,
     }
+    records = get_services_this_week()
+    if len(records) > 0:
+        total_fee = reduce(lambda a, b: a + b, map(lambda s: s.fee, records))
+        if (total_fee + fee) > 9999999:
+            raise MaxFeeError("Max weekly service fee reached.")
     service_record = ServiceRecord(data)
     storage_system.create_record(storage_system.RecordType.SERVICE, data)
     return service_record
