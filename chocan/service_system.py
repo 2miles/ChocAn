@@ -61,7 +61,7 @@ def create_service_record(
         "date_received"   : date_received,
         "comments"        : comments,
     }
-    records = get_services_this_week()
+    records = list(filter(lambda s: s.provider_number == provider_number, get_services_this_week()))
     if len(records) > 0:
         total_fee = reduce(lambda a, b: a + b, map(lambda s: s.fee, records))
         if (total_fee + fee) > 9999999:
