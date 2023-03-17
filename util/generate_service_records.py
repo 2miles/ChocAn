@@ -25,6 +25,24 @@ _providers = [
         "number": 2,
         "deleted": False,
     },
+    {
+        "name": "Empty Provider",
+        "street": "123",
+        "city": "Portland",
+        "state": "OR",
+        "zip": "97214",
+        "number": 3,
+        "deleted": False,
+    },
+    {
+        "name": "Deleted Provider",
+        "street": "98 St",
+        "city": "Portland",
+        "state": "OR",
+        "zip": "97213",
+        "number": 4,
+        "deleted": True,
+    },
 ]
 
 _members = [
@@ -47,6 +65,26 @@ _members = [
         "number": 2,
         "active": True,
         "deleted": False,
+    },
+    {
+        "name": "Empty Member",
+        "street": "Frank St",
+        "city": "Portland",
+        "state": "OR",
+        "zip": "97215",
+        "number": 3,
+        "active": True,
+        "deleted": False,
+    },
+    {
+        "name": "Deleted Member",
+        "street": "Jane St",
+        "city": "Seattle",
+        "state": "WA",
+        "zip": "98734",
+        "number": 4,
+        "active": True,
+        "deleted": True,
     },
 ]
 
@@ -83,9 +121,14 @@ print("Writing providers")
 json.dump(_providers, open(_report_directory + _provider_file, "w+"))
 
 print("Writing services")
-create_service_records(_providers[0], _members[0], 100)
-create_service_records(_providers[1], _members[0], 100)
-create_service_records(_providers[0], _members[1], 100)
-create_service_records(_providers[1], _members[1], 100)
+create_service_records(_providers[0], _members[0], 35)
+create_service_records(_providers[1], _members[0], 35)
+create_service_records(_providers[3], _members[0], 35)
+create_service_records(_providers[0], _members[1], 35)
+create_service_records(_providers[1], _members[1], 35)
+create_service_records(_providers[3], _members[1], 35)
+create_service_records(_providers[0], _members[3], 35)
+create_service_records(_providers[1], _members[3], 35)
+create_service_records(_providers[3], _members[3], 35)
 json.dump(_services, open(_report_directory + _service_file, "w+"))
 print("done")
